@@ -4,7 +4,7 @@
   "description": "Shared Server - LincedIn - FIUBA | Taller II",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "echo soon..OK"
   },
   "repository": {
     "type": "git",
