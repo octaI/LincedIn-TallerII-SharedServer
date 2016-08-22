@@ -14,3 +14,4 @@ Server NodeJS del TP.
   - Bert Tomás
 
 ## Instrucciones
+``npm start``
