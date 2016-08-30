@@ -14,7 +14,7 @@ Server NodeJS del TP.
   - Bert Tomás
 
 ## Instrucciones
-Para correr el servidor con docker, realizar los siguientes pasos. (Hay que configurar docker primero) </br>
+Para correr el servidor con docker, realizar los siguientes pasos. (Hay que configurar docker primero siguiendo: https://docs.docker.com/engine/installation/linux/ubuntulinux) </br>
 1- La primera vez se tiene que crear la imagen, haciendo ``"$ sudo docker build -t <NombreImagen> ."``</br>
 2- Para correr la imagen en un container, hacer ``$ sudo docker run -p 49000:8080 -d --name <unNombre> <NombreImagen> `` </br>
 3- Con el comando ``sudo docker ps`` podes verificar que la imagen este corriendo en un container, y el ID de ese container. </br>
