@@ -22,3 +22,6 @@ Con el IDcontainer:</br>
 4.a- Haciendo ``docker exec -ti <IDcontainer> /bin/bash`` tiras una terminal dentro de la imagen. </br>
 4.b- Haciendo ``curl -i localhost:49000`` se accede por terminal al servidor. </br>
 4.c- Haciendo ``docker logs <IDcontainer>`` se imprime lo que esta haciendo la imagen de docker. </br>
+
+##Aclaraciones
+Los nombres en los comandos DEBEN ir en minusculas SIEMPRE. </br>
