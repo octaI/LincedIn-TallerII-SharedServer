@@ -3,3 +3,6 @@ notifications:
   email: false
 node_js:
   - "node"
+branches:
+  only:
+  - master
