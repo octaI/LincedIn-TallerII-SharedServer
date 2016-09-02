@@ -17,13 +17,14 @@
     "lincedin",
     "tallerii"
   ],
-  "author": "tbert12",
+  "author": "FME-TAB-JMB-OAI",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/tbert12/LincedIn-TallerII-SharedServer/issues"
   },
   "homepage": "https://github.com/tbert12/LincedIn-TallerII-SharedServer#readme",
   "dependencies": {
-    "express": "^4.14.0"
+    "express": "^4.14.0",
+    "massive": "^2.5.0"
   }
 }
