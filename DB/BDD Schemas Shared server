@@ -9,7 +9,7 @@ create table job_positions(
 	name varchar(255) not null,
 	description varchar(255),
 	id_category int not null,
-	create_date timestamptz default now() not null,
+	create_date date not null default CURRENT_DATE,
 	delete_date date
 );
 
@@ -18,7 +18,7 @@ create table skills(
 	name varchar(255) not null,
 	description varchar(255),
 	id_category int not null,
-	create_date timestamptz default now() not null,
+	create_date date not null default CURRENT_DATE,
 	delete_date date
 );
 
@@ -26,7 +26,7 @@ create table categories(
 	id serial primary key,
 	name varchar(255) not null,
 	description varchar(255),
-	create_date timestamptz default now() not null,
+	create_date date not null default CURRENT_DATE,
 	delete_date date	
 );
 

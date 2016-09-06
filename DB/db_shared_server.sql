@@ -41,7 +41,7 @@ CREATE TABLE categories (
     id integer NOT NULL,
     name character varying(255) NOT NULL,
     description character varying(255),
-    create_date date NOT NULL,
+    create_date date not null default CURRENT_DATE,
     delete_date date
 );
 
@@ -90,7 +90,7 @@ CREATE TABLE job_positions (
     name character varying(255) NOT NULL,
     description character varying(255),
     id_category integer NOT NULL,
-    create_date date NOT NULL,
+    create_date date not null default CURRENT_DATE,
     delete_date date
 );
 
@@ -127,7 +127,7 @@ CREATE TABLE skills (
     name character varying(255) NOT NULL,
     description character varying(255),
     id_category integer NOT NULL,
-    create_date date NOT NULL,
+    create_date date not null default CURRENT_DATE,
     delete_date date
 );
 

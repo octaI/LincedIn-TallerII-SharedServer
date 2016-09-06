@@ -1,48 +1,80 @@
 'use strict';
 
-var config = require('./config.json');
+var config = require('./src/config/config.json');
+
+//Log
+var log4js = require('log4js');
+log4js.configure('./src/config/log.conf.json');
+var logger = log4js.getLogger();
+
 var express = require("express");
 var app = express();
+
+var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 var http = require('http');
 var massive = require("massive");
 var connectionString = "postgres://"+config.postgres.user+":"+config.postgres.password+"@"+config.postgres.host+"/"+config.postgres.db;
-
 var massiveInstance = massive.connectSync({connectionString : connectionString}) 
 
+
 app.set('db', massiveInstance);
+
 http.createServer(app).listen(8080);
+
+logger.debug('SharedServer start'); 
 
 var db = app.get('db');
 
-var common = require('./src/common.js');
-common.setdb(db);
+var api = require('./src/api/api.js');
+api.setdb(db);
 
 app.get('/', function (req, res) {
-	res.send("HOLA MANOLA");
+	res.send("HOLA MANOLA, nada por aqui! :(");
 });
 
-//Metdos posta del TP
-app.get('/job_positions', function (req, res) {
 
-	//var positions = db.job_positions.findSync({"delete_date =": null},{columns: ["name", "id_category", "description"]});
-	//var categories = db.categories.findSync({"delete_date =": null},{columns: ["name", "id"]});
 
-	db.run("SELECT job_positions.name, categories.name as category, job_positions.description FROM job_positions INNER JOIN categories ON (job_positions.id_category = categories.id)", function(err, positions){
- 		if (err){
- 			common.handleError(res,{code:0,message:"Error al seleccionar los puestos de trabajo"},500);
- 		}
-		res.send(common.prepareResponse("job_positions",positions));
-  	});
-});
+//Metodos get de la api rest
 
-app.get('/fme', function (req, res) {
-	var send = "REQ => \n{ ";
+//listados de puestos de trabajo
+app.get('/job_positions', api.jobPositions);
 
-	for (var query in req.query) {
-		send += req.query[query] + ' : ' + query + ', ';
-	}
+//listado de puestos de trabajo por categoria
+app.get('/job_positions/categories/:category', api.findJobPositionsByCategory);
 
-	send += '}';
+//alta de puestos
+app.post('/job_positions/categories/:category', api.addJobPosition);
 
-	res.send(send);
-});
+//baja de puesto
+app.delete('/job_positions/categories/:category/:name',api.deleteJobPosition);
+
+//update de puesto
+
+//listado de skills
+app.get('/skills', api.skills);
+
+//listado de skills por categoria
+app.get('/skills/categories/:category', api.findSkillsByCategory);
+
+//alta de skill
+
+//baja de skill
+app.delete('/skills/categories/:category/:name',api.deleteSkill);
+
+//update de skill
+
+
+//listado de categorias
+app.get('/categories', api.categories);
+
+//alta de categoria
+app.post('/categories',api.addCategory);
+
+//baja de categoria
+app.delete('/categories/:category',api.deleteCategory);
+
+//update de categoria
+app.put('/categories/:category',api.updateCategory);

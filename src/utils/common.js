@@ -35,6 +35,6 @@ module.exports = {
 		return response;
 	},
 	handleError: function(res,err,cod) {
-        res.send(cod,{code:err.code, error: err.message});
+        return res.send(cod,{code:err.code, error: err.message});
     }
 }
