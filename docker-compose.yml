@@ -1,0 +1,25 @@
+
+db:  
+  image: postgres
+  ports:
+    - "5432"
+  volumes:
+    - ./database/db_shared_server.sql:/docker-entrypoint-initdb.d/db_shared_server.sql
+  environment:
+    - POSTGRES_PASSWORD=tallerii
+    - POSTGRES_USER=lince
+    - POSTGRES_DB=lincedinsharedserver
+pruebamassive:  
+  build: .
+  ports:
+    - "8080:8080"
+  expose:
+    - "8080"
+  links:
+    - db
+  environment:
+    - PGHOST=db
+    - PGDATABASE=lincedinsharedserver
+    - PGUSER_USER=lince
+    - PGUSER_PASSWORD=tallerii
+    - DATABASE_URL=db:5432
