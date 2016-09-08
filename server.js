@@ -28,7 +28,7 @@ function configureMassive(){
 	massiveInstance = massive.connectSync({connectionString : connectionString}) 
 	app.set('db', massiveInstance);
 
-	http.createServer(app).listen(8080);
+	http.createServer(app).listen(process.env.PORT || 8080);
 
 	logger.debug('SharedServer start'); 
 

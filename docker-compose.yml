@@ -9,7 +9,7 @@ db:
     - POSTGRES_PASSWORD=tallerii
     - POSTGRES_USER=lince
     - POSTGRES_DB=lincedinsharedserver
-pruebamassive:  
+lincedin:  
   build: .
   ports:
     - "8080:8080"
