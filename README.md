@@ -1,6 +1,6 @@
-# LincedIn-TallerII-SharedServer
+# LincedIn-TallerII-SharedServer [![Build Status](https://travis-ci.org/tbert12/LincedIn-TallerII-SharedServer.svg?branch=master)](https://travis-ci.org/tbert12/LincedIn-TallerII-SharedServer)
 Trabajo Práctico de Taller de Programación II (75.52) | Facultad de Ingeniería - Universidad de Buenos Aires
-[![Build Status](https://travis-ci.org/tbert12/LincedIn-TallerII-SharedServer.svg?branch=master)](https://travis-ci.org/tbert12/LincedIn-TallerII-SharedServer)
+
 
 ## Descripción
 Server NodeJS del TP.
