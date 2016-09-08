@@ -20,6 +20,9 @@ Server NodeJS del TP.
 ## Instrucciones REST API
 http://rebilly.github.io/ReDoc/?url=https://gist.githubusercontent.com/NickCis/d6a8132a228440c41889b4e0003efc3b/raw/jobify-shared-api.yaml
 
+## Heroku
+  - https://lincedin.herokuapp.com/
+
 ## Instrucciones
 Para correr el servidor con docker, realizar los siguientes pasos. (Hay que configurar docker primero siguiendo: https://docs.docker.com/engine/installation/linux/ubuntulinux) </br>
 1- La primera vez se tiene que crear la imagen, haciendo ``"$ sudo docker build -t <NombreImagen> ."``</br>
