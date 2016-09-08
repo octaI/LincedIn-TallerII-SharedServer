@@ -1,6 +1,6 @@
 'use strict';
-
-var config = require('./src/config/config.json');
+//configuración de base de datos. Esto varía si es heroku o docker
+var config = require('./src/config/configdb.js');
 
 //Log
 var log4js = require('log4js');
@@ -19,8 +19,12 @@ var massive = require("massive");
 var api = require('./src/api/api.js');
 var massiveInstance;
 
+var configDB = config.jsonConfigDB();
+
+logger.debug('SharedServer configurado para utilizar base de datos de ' + configDB.name); 
+
 function configureMassive(){
-	var connectionString = "postgres://"+process.env['PGUSER_USER']+":"+process.env['PGUSER_PASSWORD']+	"@"+process.env['DATABASE_URL']+"/"+process.env['PGDATABASE'];
+	var connectionString = "postgres://"+configDB.user+":"+configDB.password+"@"+configDB.host+"/"+configDB.db+configDB.addons;
 	massiveInstance = massive.connectSync({connectionString : connectionString}) 
 	app.set('db', massiveInstance);
 
@@ -33,10 +37,11 @@ function configureMassive(){
 	api.setdb(db);
 }
 
-setTimeout(configureMassive,10000);
+setTimeout(configureMassive,configDB.timeToWaitDB);
+
 
 app.get('/', function (req, res) {
-	res.send("HOLA MANOLA, nada por aqui! :(");
+	res.send("LINCEDIN SharedServer, nada por aquí aún! :(");
 });
 
 //Metodos get de la api rest

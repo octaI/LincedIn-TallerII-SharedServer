@@ -3,12 +3,14 @@ var db = null;
 var getConfigValue = function(nam){
 	
 	if (db == null){
+		logger.error("Error, base de datos nula en common");
 		return;
 	}
 
-	var val = db.config.findOneSync({"name":nam});
-	
-	return val.value;
+	//NO ESTÄ FUNCIONANDO LA VERSION
+	//var val = db.config.findOneSync({"name":nam});
+
+	return "0.1";//val.value;
 };
 
 module.exports = {
@@ -19,14 +21,13 @@ module.exports = {
 	getConfigValue: getConfigValue,
 	
 	prepareResponse: function(name,data){ 
-
 		if (db == null){
+			logger.error("Error, base de datos nula en common");
 			return;
 		}
-
+				
 		var version = getConfigValue("version");
-
-
+		
 		var response = {};
 
 		response[name] = data;

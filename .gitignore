@@ -1,3 +1,6 @@
 # NodeJS depende
 node_modules/
+
+#Logs
 src/logs/
+npm-debug.log*

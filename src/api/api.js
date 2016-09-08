@@ -18,12 +18,12 @@ exports.setdb = function(_db){
 };
 
 exports.jobPositions = function (req, res) {
-
 	db.run("SELECT job_positions.name, categories.name as category, job_positions.description FROM job_positions INNER JOIN categories ON job_positions.delete_date is null and(job_positions.id_category = categories.id)", function(err, positions){
  		if (err){
+ 			console.log(err);
  			return common.handleError(res,{code:0,message:"Error al seleccionar los puestos de trabajo"},CODE_ERROR_UNEXPECTED);
  		}
-		res.send(CODE_LIST_OK,common.prepareResponse("job_positions",positions));
+ 		res.status(CODE_LIST_OK).send(common.prepareResponse("job_positions",positions));
   	});
 };
 
@@ -75,7 +75,7 @@ exports.addJobPosition = function (req, res) {
  		result["description"] = job_position.description;
  		result["category"] = category;
 
- 		res.send(CODE_ADD_OK,result);
+ 		res.status(CODE_ADD_OK).send(result);
 	});
 
 };
@@ -158,7 +158,7 @@ exports.updateJobPosition =  function (req, res) {
  		result["description"] = job_position.description;
  		result["category"] = new_category;
 
- 		res.send(CODE_UPDATE_OK,result);
+ 		res.status(CODE_UPDATE_OK).send(result);
 	});
 };
 
@@ -221,7 +221,7 @@ exports.addSkill = function (req, res) {
  		result["description"] = skill.description;
  		result["category"] = category;
 
- 		res.send(CODE_ADD_OK,result);
+ 		res.status(CODE_ADD_OK).send(result);
 	});
 
 };
@@ -304,7 +304,7 @@ exports.updateSkill = function (req, res) {
  		result["description"] = skill.description;
  		result["category"] = new_category;
 
- 		res.send(CODE_UPDATE_OK,result);
+ 		res.status(CODE_UPDATE_OK).send(result);
 	});
 };
 
@@ -343,7 +343,7 @@ exports.addCategory = function (req, res) {
  		result["name"] = category.name;
  		result["description"] = category.description;
 
- 		res.send(CODE_ADD_OK,result);
+ 		res.status(CODE_ADD_OK).send(result);
 	});	
 
 };
@@ -416,7 +416,7 @@ exports.updateCategory = function (req, res) {
  		result["name"] = category.name;
  		result["description"] = category.description;
 
- 		res.send(CODE_UPDATE_OK,result);
+ 		res.status(CODE_UPDATE_OK).send(result);
 	});
 
 };
