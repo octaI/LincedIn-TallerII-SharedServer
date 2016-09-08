@@ -16,26 +16,28 @@ app.use(bodyParser.json());
 
 var http = require('http');
 var massive = require("massive");
-var connectionString = "postgres://"+config.postgres.user+":"+config.postgres.password+"@"+config.postgres.host+"/"+config.postgres.db;
-var massiveInstance = massive.connectSync({connectionString : connectionString}) 
-
-
-app.set('db', massiveInstance);
-
-http.createServer(app).listen(8080);
-
-logger.debug('SharedServer start'); 
-
-var db = app.get('db');
-
 var api = require('./src/api/api.js');
-api.setdb(db);
+var massiveInstance;
+
+function configureMassive(){
+	var connectionString = "postgres://"+process.env['PGUSER_USER']+":"+process.env['PGUSER_PASSWORD']+	"@"+process.env['DATABASE_URL']+"/"+process.env['PGDATABASE'];
+	massiveInstance = massive.connectSync({connectionString : connectionString}) 
+	app.set('db', massiveInstance);
+
+	http.createServer(app).listen(8080);
+
+	logger.debug('SharedServer start'); 
+
+	var db = app.get('db');
+
+	api.setdb(db);
+}
+
+setTimeout(configureMassive,10000);
 
 app.get('/', function (req, res) {
 	res.send("HOLA MANOLA, nada por aqui! :(");
 });
-
-
 
 //Metodos get de la api rest
 

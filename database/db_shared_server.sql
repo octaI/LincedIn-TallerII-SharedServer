@@ -33,6 +33,10 @@ SET default_tablespace = '';
 
 SET default_with_oids = false;
 
+
+ALTER DATABASE lincedinsharedserver OWNER TO lince;
+GRANT CONNECT ON DATABASE lincedinsharedserver TO lince;
+
 --
 -- Name: categories; Type: TABLE; Schema: public; Owner: lince
 --
