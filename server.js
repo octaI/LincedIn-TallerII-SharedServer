@@ -52,6 +52,7 @@ app.post('/job_positions/categories/:category', api.addJobPosition);
 app.delete('/job_positions/categories/:category/:name',api.deleteJobPosition);
 
 //update de puesto
+app.put('/job_positions/categories/:category/:name',api.updateJobPosition);
 
 //listado de skills
 app.get('/skills', api.skills);
@@ -60,12 +61,13 @@ app.get('/skills', api.skills);
 app.get('/skills/categories/:category', api.findSkillsByCategory);
 
 //alta de skill
+app.post('/skill/categories/:category',api.addSkill);
 
 //baja de skill
 app.delete('/skills/categories/:category/:name',api.deleteSkill);
 
 //update de skill
-
+app.put('/skills/categories/:category/:name',api.updateSkill);
 
 //listado de categorias
 app.get('/categories', api.categories);
@@ -77,4 +79,4 @@ app.post('/categories',api.addCategory);
 app.delete('/categories/:category',api.deleteCategory);
 
 //update de categoria
-app.put('/categories/:category',api.updateCategory);
+app.post('/categories/:category',api.updateCategory);
