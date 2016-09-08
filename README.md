@@ -26,6 +26,6 @@ http://rebilly.github.io/ReDoc/?url=https://gist.githubusercontent.com/NickCis/d
 ## Instrucciones
   - Para correr el servidor con docker, realizar los siguientes pasos. (Hay que configurar docker primero siguiendo: https://docs.docker.com/engine/installation/linux/ubuntulinux) </br>
   - 1- La primera vez se tiene que crear la imagen, haciendo ``"$ docker-compose build"``</br>
-  - 2- Para correr la imagen en los correspondientes containers, hacer ``$ docker-compose up`` </br>
+  - 2- Para correr la imagen en los correspondientes containers, hacer ``"$ docker-compose up"`` </br>
   - 3- Con el comando ``sudo docker ps`` podes verificar que los containers esten corriendo. </br>
   - 4- Luego se puede usar la REST API en `` http://localhost:8080/ ``.
