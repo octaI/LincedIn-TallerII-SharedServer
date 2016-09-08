@@ -1,0 +1,11 @@
+{
+    "express"  : {
+        "port"     : 8080
+    },
+    "postgres": {
+        "db"       : "lincedinsharedserver",
+        "user"     : "lince",
+        "password" : "tallerii",
+        "host"     : "localhost"
+    }
+}

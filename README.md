@@ -6,12 +6,19 @@ Server NodeJS del TP.
 
 ### Herramientas | Framework
   - Express
+  - Body-Parser
+  - Log4js
+  - Massive
+  - BD: PostgreSQL
 
 ### Integrantes:
   - Octavio Iogha
   - Etchanchú Facundo
   - Bouvier Juan Manuel
   - Bert Tomás
+
+## Instrucciones REST API
+http://rebilly.github.io/ReDoc/?url=https://gist.githubusercontent.com/NickCis/d6a8132a228440c41889b4e0003efc3b/raw/jobify-shared-api.yaml
 
 ## Instrucciones
 Para correr el servidor con docker, realizar los siguientes pasos. (Hay que configurar docker primero siguiendo: https://docs.docker.com/engine/installation/linux/ubuntulinux) </br>

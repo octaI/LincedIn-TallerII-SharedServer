@@ -1,0 +1,75 @@
+pasos para postgresql:
+
+1- sudo apt-get install postgresql
+2- sudo -u prostgres psql postgres
+3- \password postgres
+4- lincedinAdmin
+5- \q
+6- createdb lincedinShareServer
+7- sudo -u prostgres psql lincedinShareServer
+8-  create table users(
+  		id serial primary key, 
+  		email varchar(255) not null unique, 
+  		first varchar(50), 
+  		last varchar(50)
+    );
+
+
+
+
+//cuando agregue a la BD
+//agregar algo a la BD
+var now = new Date().toISOString();
+
+/*
+//version
+db.config.save({name: "version", value: "0.0.1"}, function(err,result){
+  console.log(result);  
+});
+
+
+
+//agrego categorias
+db.categories.save({name: "software",description: "Categoría relacionada con software",create_date: now, delete_date:null}, function(err,result){
+  console.log(result);
+  console.log(err); 
+});
+
+db.categories.save({name: "music",description: "Categoría relacionada con la música",create_date: now, delete_date:null}, function(err,result){
+  console.log(result); 
+  console.log(err);
+});
+*/
+
+var id_software = db.categories.findOne({"name":'software'}, function(err, res){
+  id_software = res.id;
+});
+
+var id_music = db.categories.findOne({"name":'music'}, function(err, res){
+  id_music = res.id;
+});
+
+
+
+//job_positions
+db.job_positions.save({name: "developer",description: "Desarrollador", id_category:1,create_date: now, delete_date:null}, function(err,result){
+  console.log(result);  
+});
+
+db.job_positions.save({name: "project manager",description: "Persona encargada de manejar el proyecto", id_category:1,create_date: now, delete_date:null}, function(err,result){
+  console.log(result);  
+});
+
+db.job_positions.save({name: "dj",description: "Persona que selecciona y mezcla música", id_category:2,create_date: now, delete_date:null}, function(err,result){
+  console.log(result);  
+});
+
+
+//Skills
+db.skills.save({name: "c",description: "Lenguaje de programación C", id_category:1, create_date: now, delete_date:null}, function(err,result){
+  console.log(result);  
+});
+
+db.skills.save({name: "Java",description: "Lenguaje de programación Java", id_category:1, create_date: now, delete_date:null}, function(err,result){
+  console.log(result);  
+});
