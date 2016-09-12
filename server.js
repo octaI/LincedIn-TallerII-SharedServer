@@ -86,4 +86,4 @@ app.post('/categories',api.addCategory);
 app.delete('/categories/:category',api.deleteCategory);
 
 //update de categoria
-app.post('/categories/:category',api.updateCategory);
+app.put('/categories/:category',api.updateCategory);

@@ -35,9 +35,7 @@ exports.findJobPositionsByCategory = function (req, res) {
  			console.log(err);
  			return common.handleError(res,{code:0,message:"Error al seleccionar los puestos de trabajo"},CODE_ERROR_UNEXPECTED);
  		}
- 		if (positions.length == 0){
- 			return common.handleError(res,{code:0,message:"Ningún dato para la categoria: " + category},CODE_ERROR_INEXISTENTE);	
- 		}
+ 		
 		res.send(common.prepareResponse("job_positions",positions));
   	});
 };
@@ -179,9 +177,6 @@ exports.findSkillsByCategory = function (req, res) {
  		if (err){
  			console.log(err);
  			return common.handleError(res,{code:0,message:"Error al seleccionar las habilidades"},CODE_ERROR_UNEXPECTED);
- 		}
- 		if (positions.length == 0){
- 			return common.handleError(res,{code:0,message:"Ningún dato para la categoria: " + category},CODE_ERROR_INEXISTENTE);	
  		}
 		res.send(common.prepareResponse("skills",positions));
   	});
