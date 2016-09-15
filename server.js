@@ -23,6 +23,9 @@ var configDB = config.jsonConfigDB();
 
 logger.debug('SharedServer configurado para utilizar base de datos de ' + configDB.name); 
 
+var configApi = {};
+configApi.logger = logger;
+
 function configureMassive(){
 	var connectionString = "postgres://"+configDB.user+":"+configDB.password+"@"+configDB.host+"/"+configDB.db+configDB.addons;
 	massiveInstance = massive.connectSync({connectionString : connectionString}) 
@@ -34,7 +37,9 @@ function configureMassive(){
 
 	var db = app.get('db');
 
-	api.setdb(db);
+	configApi.db = db;
+	
+	api.config(configApi);
 }
 
 setTimeout(configureMassive,configDB.timeToWaitDB);

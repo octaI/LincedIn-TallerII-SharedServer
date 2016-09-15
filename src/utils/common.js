@@ -1,4 +1,5 @@
 var db = null;
+var logger = null;
 
 var getConfigValue = function(nam){
 	
@@ -14,10 +15,12 @@ var getConfigValue = function(nam){
 };
 
 module.exports = {
-
-	setdb: function(_db){
-		db = _db;
+	
+	config: function(config){
+		db = config.db;
+		logger = config.logger;
 	},
+
 	getConfigValue: getConfigValue,
 	
 	prepareResponse: function(name,data){ 
