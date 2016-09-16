@@ -17,6 +17,7 @@ app.use(bodyParser.json());
 var http = require('http');
 var massive = require("massive");
 var api = require('./src/api/api.js');
+var path = require('path')
 var massiveInstance;
 
 var configDB = config.jsonConfigDB();
@@ -46,7 +47,7 @@ setTimeout(configureMassive,configDB.timeToWaitDB);
 
 
 app.get('/', function (req, res) {
-	res.send("LINCEDIN SharedServer, nada por aquí aún! :(");
+	res.sendFile(path.join(__dirname + '/src/index.html'));
 });
 
 //Metodos get de la api rest
