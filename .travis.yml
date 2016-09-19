@@ -1,8 +1,21 @@
+sudo: required
+
 language: node_js
+
 notifications:
-  email: false
+  slack: lincedintallerii:0mRgaQ0KRHMiKHjlCed7FZ1W
+
 node_js:
   - "node"
+
 branches:
   only:
   - master
+  - dev
+
+before_install:
+  - sudo apt-get install -y python python-pycurl python-pip
+  - sudo pip install pyresttest
+  - sudo npm install
+  - sudo npm start
+  - resttest.py http://localhost:8080 src/test/jobsPositionsTest.yaml
