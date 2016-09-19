@@ -79,6 +79,8 @@ exports.addJobPosition = function (req, res) {
 	new_position["description"] = description;
 	new_position["id_category"] = id_category;
 
+	//TODO: buscar si esta y setear la fecha de data = null
+
 	db.job_positions.insert(new_position, function(err, job_position){
 		if (err){
 			logger.error('Error al agregar un puesto de trabajo en la base de datos: ' + err.message);
@@ -122,7 +124,7 @@ exports.deleteJobPosition = function (req, res) {
  			return common.handleError(res,{code:ERROR_DESTROY_DATA_DB,message:"Error al eliminar la posición"},CODE_ERROR_UNEXPECTED);
  		}
 
- 		res.send(CODE_DELETE_OK);
+ 		res.status(CODE_DELETE_OK).send();
 	});
 
 };
@@ -143,7 +145,7 @@ exports.updateJobPosition =  function (req, res) {
 	var id_old_category = db.categories.findOneSync({"name":old_category,"delete_date =":null});
 
 	if (typeof id_old_category === "undefined"){
-		logger.error('Error al modificar un puesto de trabajo, categoría inexistente: ' + category);
+		logger.error('Error al modificar un puesto de trabajo, categoría inexistente: ' + old_category);
 		return common.handleError(res,{code:ERROR_PARAMETER_INVALID,message:"No existe el recurso solicitado: "+ old_category},CODE_ERROR_INEXISTENTE);
 	}
 
@@ -153,7 +155,7 @@ exports.updateJobPosition =  function (req, res) {
 
 	if (typeof job === "undefined"){
 		logger.error('Error al modificar un puesto de trabajo, es inexistente: ' + new_name);
-		return common.handleError(res,{code:ERROR_FIND_DATA_DB,message:"No existe el recurso solicitado " + old_name},CODE_ERROR_INEXISTENTE);
+		return common.handleError(res,{code:ERROR_FIND_DATA_DB,message:"No existe el recurso solicitado: '" + old_name + "' para la categoria " + old_category},CODE_ERROR_INEXISTENTE);
 	}
 
 	var id_new_category =  db.categories.findOneSync({"name":new_category,"delete_date =":null});
@@ -163,7 +165,10 @@ exports.updateJobPosition =  function (req, res) {
 		return common.handleError(res,{code:ERROR_PARAMETER_INVALID,message:"No existe el recurso solicitado: "+ new_category},CODE_ERROR_INEXISTENTE);
 	}
 
+	id_new_category = id_new_category.id;
+
 	var update_job_position = {};
+	update_job_position["id"] = job.id;
 	update_job_position["name"] = new_name;
 	update_job_position["description"] = new_description;
 	update_job_position["id_category"] = id_new_category;
