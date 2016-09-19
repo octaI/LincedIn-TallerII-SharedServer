@@ -245,7 +245,7 @@ exports.addSkill = function (req, res) {
 
 	db.skills.insert(new_skill, function(err, skill){
 		if (err){
-			console.log(err);
+			logger.error('Error al agregar una skill: ' + err.message);
  			return common.handleError(res,{code:ERROR_INSERT_DB,message:"Error al agregar la habilidad"},CODE_ERROR_UNEXPECTED);
  		}
 
@@ -266,6 +266,7 @@ exports.deleteSkill = function (req, res) {
 	var id_category = db.categories.findOneSync({"name":category,"delete_date =":null});
 
 	if (typeof id_category === "undefined"){
+		logger.error('Error al borrar una skill, categoría inexistente: ' + category);
 		return common.handleError(res,{code:ERROR_PARAMETER_INVALID,message:"Categoría inexistente: "+ category},CODE_ERROR_INEXISTENTE);
 	}
 
@@ -274,17 +275,18 @@ exports.deleteSkill = function (req, res) {
 	var skill = db.skills.findOneSync({"name":name,"id_category":id_category,"delete_date =":null});
 
 	if (typeof skill === "undefined"){
+		logger.error('Error al borrar una skill, no existe: ' + name);
 		return common.handleError(res,{code:ERROR_FIND_DATA_DB,message:"No existe el recurso solicitado."},CODE_ERROR_INEXISTENTE);
 	}
 	
 	//TODO: ver si es mejor borrar por completo de la db o setear la fecha de baja y mantener los datos
 	db.skills.destroy({"id":skill.id}, function(err, skill){
 		if (err){
-			console.log(err);
+			logger.error('Error al borrar una skill: ' + err.message);
  			return common.handleError(res,{code:ERROR_DESTROY_DATA_DB,message:"Error al eliminar la habilidad"},CODE_ERROR_UNEXPECTED);
  		}
 
- 		res.send(CODE_DELETE_OK);
+ 		res.status(CODE_DELETE_OK).send();
 	});
 
 };
@@ -305,6 +307,7 @@ exports.updateSkill = function (req, res) {
 	var id_old_category = db.categories.findOneSync({"name":old_category,"delete_date =":null});
 
 	if (typeof id_old_category === "undefined"){
+		logger.error('Error al modificar una skill, no existe la categoría: ' + old_category);
 		return common.handleError(res,{code:ERROR_PARAMETER_INVALID,message:"No existe el recurso solicitado: "+ old_category},CODE_ERROR_INEXISTENTE);
 	}
 
@@ -313,12 +316,14 @@ exports.updateSkill = function (req, res) {
 	var skill = db.skills.findOneSync({"name":old_name,"id_category":id_old_category,"delete_date =":null});
 
 	if (typeof skill === "undefined"){
+		logger.error('Error al modificar una skill, no existe: -> name ' + old_name + " category " + old_category);
 		return common.handleError(res,{code:ERROR_FIND_DATA_DB,message:"No existe el recurso solicitado " + old_name},CODE_ERROR_INEXISTENTE);
 	}
 
 	var id_new_category =  db.categories.findOneSync({"name":new_category,"delete_date =":null});
 
 	if (typeof id_new_category === "undefined"){
+		logger.error('Error al modificar una skill, no existe la categoría nueva: ' + new_category);
 		return common.handleError(res,{code:ERROR_FIND_DATA_DB,message:"No existe el recurso solicitado: "+ new_category},CODE_ERROR_INEXISTENTE);
 	}
 
@@ -420,7 +425,7 @@ exports.deleteCategory = function (req, res) {
  			return common.handleError(res,{code:ERROR_DESTROY_DATA_DB_DB,message:"Error al eliminar la categoría"},CODE_ERROR_UNEXPECTED);
  		}
 
- 		res.send(CODE_DELETE_OK);
+ 		res.status(CODE_DELETE_OK).send();
 	});
 
 };

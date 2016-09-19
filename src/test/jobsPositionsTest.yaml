@@ -60,6 +60,13 @@
         - compare: {jsonpath_mini: 'description', expected: 'Persona que realiza los test.'}
         - compare: {jsonpath_mini: 'category', expected: 'music'}
 - test:
+    - name: "Modificación de puestos, faltante de parámetros"
+    - url: "/job_positions/categories/software/Testeador"
+    - method: 'PUT'
+    - body: '{"name": "tester"}'
+    - headers: {Content-Type: application/json}
+    - expected_status: [400]
+- test:
     - name: "Baja de puestos"
     - url: "/job_positions/categories/music/Testeador"
     - method: 'DELETE'
@@ -71,6 +78,6 @@
     - expected_status: [404]
 - test:
     - name: "Baja de puestos no existe categoría"
-    - url: "/job_positions/categories/software/Testeador"
+    - url: "/job_positions/categories/invalidName/Testeador"
     - method: 'DELETE'
     - expected_status: [404]
