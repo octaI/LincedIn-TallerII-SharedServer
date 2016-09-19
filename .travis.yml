@@ -18,7 +18,7 @@ branches:
 
 before_install:
   - docker-compose build
-  - docker-compose up
+  - docker-compose up &
 
 before_script:
   - sudo apt-get install -y python python-pycurl python-pip
@@ -28,3 +28,6 @@ script:
   - resttest.py http://localhost:8080 src/test/jobsPositionsTest.yaml
   - resttest.py http://localhost:8080 src/test/categoriesTest.yaml
   - resttest.py http://localhost:8080 src/test/skillsTest.yaml
+
+after_script:
+  - docker-compose stop db lincedin
