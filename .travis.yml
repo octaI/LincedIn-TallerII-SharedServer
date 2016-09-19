@@ -18,7 +18,7 @@ branches:
 
 before_install:
   - docker-compose build
-  - docker-compose up &
+  - docker-compose up -d
 
 before_script:
   - sudo apt-get install -y python python-pycurl python-pip
