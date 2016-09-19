@@ -242,6 +242,14 @@ SELECT pg_catalog.setval('skills_id_seq', 2, true);
 
 
 --
+-- Name: categories_name; Type: CONSTRAINT; Schema: public; Owner: lince
+--
+
+ALTER TABLE ONLY categories
+    ADD CONSTRAINT categories_name UNIQUE (name);
+
+
+--
 -- Name: categories_pkey; Type: CONSTRAINT; Schema: public; Owner: lince
 --
 
@@ -258,11 +266,27 @@ ALTER TABLE ONLY config
 
 
 --
+-- Name: job_positions_name; Type: CONSTRAINT; Schema: public; Owner: lince
+--
+
+ALTER TABLE ONLY job_positions
+    ADD CONSTRAINT job_positions_name UNIQUE (name);
+
+
+--
 -- Name: job_positions_pkey; Type: CONSTRAINT; Schema: public; Owner: lince
 --
 
 ALTER TABLE ONLY job_positions
     ADD CONSTRAINT job_positions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: skills_name; Type: CONSTRAINT; Schema: public; Owner: lince
+--
+
+ALTER TABLE ONLY skills
+    ADD CONSTRAINT skills_name UNIQUE (name);
 
 
 --
