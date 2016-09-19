@@ -1,0 +1,73 @@
+# TEST for API LincedIn shared server
+---
+- config:
+    - testset: "Tests Categories"
+
+- test:
+    - name: "Listado de categorías"
+    - url: "/categories"
+- test:
+    - name: "Alta de categoría"
+    - url: "/categories"
+    - method: 'POST'
+    - body: '{"name": "sport","description": "categoría relacionada con los deportes"}'
+    - headers: {Content-Type: application/json}
+    - expected_status: [201]
+    - validators:
+        - compare: {header: content-type, comparator: contains, expected: 'json'}
+        - compare: {jsonpath_mini: 'name', expected: 'sport'}
+        - compare: {jsonpath_mini: 'description', expected: 'categoría relacionada con los deportes'}
+- test:
+    - name: "Alta de categoría con faltante de parámetros"
+    - url: "/categories"
+    - method: 'POST'
+    - body: '{"name": "sport"}'
+    - headers: {Content-Type: application/json}
+    - expected_status: [400]
+- test:
+    - name: "Modificación de categoría"
+    - url: "/categories/sport"
+    - method: 'PUT'
+    - body: '{"name": "deporte","description": "categoría relacionada con deporte."}'
+    - headers: {Content-Type: application/json}
+    - expected_status: [200]
+    - validators:
+        - compare: {header: content-type, comparator: contains, expected: 'json'}
+        - compare: {jsonpath_mini: 'name', expected: 'deporte'}
+        - compare: {jsonpath_mini: 'description', expected: 'categoría relacionada con deporte.'}
+- test:
+    - name: "Modificación de categoría con faltante de parámetros"
+    - url: "/categories/deporte"
+    - method: 'PUT'
+    - body: '{"name": "sport"}'
+    - headers: {Content-Type: application/json}
+    - expected_status: [400]
+- test:
+    - name: "Modificación de categoría inexistente"
+    - url: "/categories/sport"
+    - method: 'PUT'
+    - body: '{"name": "sport","description":"categoría relacionada con los deportes"}'
+    - headers: {Content-Type: application/json}
+    - expected_status: [404]
+- test:
+    - name: "Modificación de categoría utilizada"
+    - url: "/categories/software"
+    - method: 'PUT'
+    - body: '{"name": "software","description":"otra descripción."}'
+    - headers: {Content-Type: application/json}
+    - expected_status: [500]
+- test:
+    - name: "Baja de categoría"
+    - url: "/categories/deporte"
+    - method: 'DELETE'
+    - expected_status: [204]
+- test:
+    - name: "Baja de categoría inexistente"
+    - url: "/categories/invalidName"
+    - method: 'DELETE'
+    - expected_status: [404]
+- test:
+    - name: "Baja de categoría utilizada"
+    - url: "/categories/software"
+    - method: 'DELETE'
+    - expected_status: [500]

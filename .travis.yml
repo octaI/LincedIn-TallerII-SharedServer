@@ -19,3 +19,5 @@ before_install:
   - sudo npm install
   - sudo npm start
   - resttest.py http://localhost:8080 src/test/jobsPositionsTest.yaml
+  - resttest.py http://localhost:8080 src/test/categoriesTest.yaml
+  - resttest.py http://localhost:8080 src/test/skillsTest.yaml

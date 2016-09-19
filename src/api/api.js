@@ -79,21 +79,28 @@ exports.addJobPosition = function (req, res) {
 	new_position["description"] = description;
 	new_position["id_category"] = id_category;
 
-	//TODO: buscar si esta y setear la fecha de data = null
 
-	db.job_positions.insert(new_position, function(err, job_position){
-		if (err){
-			logger.error('Error al agregar un puesto de trabajo en la base de datos: ' + err.message);
- 			return common.handleError(res,{code:ERROR_INSERT_DB,message:"Error al agregar el puesto de trabajo"},CODE_ERROR_UNEXPECTED);
- 		}
+	var job = db.job_positions.findOneSync(new_position);
+	
+	if (typeof job === 'undefined'){
 
- 		var result = {};
- 		result["name"] = job_position.name;
- 		result["description"] = job_position.description;
- 		result["category"] = category;
+		db.job_positions.insert(new_position, function(err, job_position){
+			if (err){
+				logger.error('Error al agregar un puesto de trabajo en la base de datos: ' + err.message);
+	 			return common.handleError(res,{code:ERROR_INSERT_DB,message:"Error al agregar el puesto de trabajo"},CODE_ERROR_UNEXPECTED);
+	 		}
 
- 		res.status(CODE_ADD_OK).send(result);
-	});
+	 		var result = {};
+	 		result["name"] = job_position.name;
+	 		result["description"] = job_position.description;
+	 		result["category"] = category;
+
+	 		res.status(CODE_ADD_OK).send(result);
+		});	
+	} else {
+		logger.error('Error al agregar un puesto de trabajo en la base de datos, ya existe la entrada: ' + name + ' para la categoria: ' + category);
+		return common.handleError(res,{code:ERROR_INSERT_DB,message:"Error al agregar el puesto de trabajo, ya existe"},CODE_ERROR_UNEXPECTED);
+	}
 
 };
 
@@ -192,6 +199,7 @@ exports.skills = function (req, res) {
 
 	db.run("SELECT skills.name, categories.name as category, skills.description FROM skills INNER JOIN categories ON skills.delete_date is null and (skills.id_category = categories.id)", function(err, skills){
  		if (err){
+ 			logger.error('Error al listar skills: ' + err.message);
  			return common.handleError(res,{code:ERROR_QUERY_DB,message:"Error al seleccionar las habilidades"},CODE_ERROR_UNEXPECTED);
  		}
 		res.send(common.prepareResponse("skills",skills));
@@ -203,7 +211,7 @@ exports.findSkillsByCategory = function (req, res) {
 	
 	db.run("SELECT skills.name, categories.name as category, skills.description FROM skills INNER JOIN categories ON skills.delete_date is null and (skills.id_category = categories.id) and categories.name = $1",[category], function(err, positions){
  		if (err){
- 			console.log(err);
+ 			logger.error('Error al listar skills por categoria: ' + err.message);
  			return common.handleError(res,{code:ERROR_QUERY_DB,message:"Error al seleccionar las habilidades"},CODE_ERROR_UNEXPECTED);
  		}
 		res.send(common.prepareResponse("skills",positions));
@@ -217,12 +225,14 @@ exports.addSkill = function (req, res) {
 	var description = req.body.description;
 
 	if ((typeof name === "undefined") || (typeof description === "undefined")){
+		logger.error('Error al agregar una skill, faltan parámetros -> name: '+ name +  ' - description: '+ description);
 		return common.handleError(res,{code:ERROR_PARAMETER_MISSING,message:"Incumplimiento de precondiciones (parámetros faltantes)"},CODE_ERROR_INCLUMPLIMIENTO);
 	}
 
 	var id_category = db.categories.findOneSync({"name":category,"delete_date =":null});
 
 	if (typeof id_category === "undefined"){
+		logger.error('Error al agregar una skill cateforía inexistente: '+ category);
 		return common.handleError(res,{code:ERROR_PARAMETER_INVALID,message:"Categoría inexistente: "+ category},CODE_ERROR_INEXISTENTE);
 	}
 
@@ -288,6 +298,7 @@ exports.updateSkill = function (req, res) {
 	var new_category = req.body.category;
 
 	if ((typeof new_name === "undefined") || (typeof new_description === "undefined") || (typeof new_category === "undefined")){
+		logger.error('Error al modificar una skill, faltan parámetros -> name: '+ new_name +  ' - description: '+ new_description + ' - categoría: '+ new_category);
 		return common.handleError(res,{code:ERROR_PARAMETER_MISSING,message:"Incumplimiento de precondiciones (parámetros faltantes)"},CODE_ERROR_INCLUMPLIMIENTO);
 	}
 
@@ -301,7 +312,7 @@ exports.updateSkill = function (req, res) {
 
 	var skill = db.skills.findOneSync({"name":old_name,"id_category":id_old_category,"delete_date =":null});
 
-	if (typeof job === "undefined"){
+	if (typeof skill === "undefined"){
 		return common.handleError(res,{code:ERROR_FIND_DATA_DB,message:"No existe el recurso solicitado " + old_name},CODE_ERROR_INEXISTENTE);
 	}
 
@@ -311,14 +322,17 @@ exports.updateSkill = function (req, res) {
 		return common.handleError(res,{code:ERROR_FIND_DATA_DB,message:"No existe el recurso solicitado: "+ new_category},CODE_ERROR_INEXISTENTE);
 	}
 
+	id_new_category = id_new_category.id;
+
 	var update_skill = {};
+	update_skill["id"] = skill.id;
 	update_skill["name"] = new_name;
 	update_skill["description"] = new_description;
 	update_skill["id_category"] = id_new_category;
 
 	db.skills.update(update_skill, function(err, skill){
 		if (err){
-			console.log(err);
+			logger.error('Error al modificar la skill: ' + err.message);
  			return common.handleError(res,{code:ERROR_UPDATE_DB,message:"Error al modificar la habilidad"},CODE_ERROR_UNEXPECTED);
  		}
 
@@ -335,6 +349,7 @@ exports.categories = function (req, res) {
 
 	db.categories.find({"delete_date =":null},{columns: ["name","description"]}, function(err, categories){
  		if (err){
+ 			logger.error('Error al listar las categorías: ' + err.message);
  			return common.handleError(res,{code:ERROR_QUERY_DB,message:"Error al seleccionar las categorias"},CODE_ERROR_UNEXPECTED);
  		}
 		res.send(common.prepareResponse("categories",categories));
@@ -346,19 +361,25 @@ exports.addCategory = function (req, res) {
 	var name = req.body.name;
 	var description = req.body.description;
 
+	if ((typeof name === "undefined") || (typeof description === "undefined")){
+		logger.error('Error al agregar una categoría, faltan parámetros -> name: '+ name +  ' - description: '+ description);
+		return common.handleError(res,{code:ERROR_PARAMETER_MISSING,message:"Incumplimiento de precondiciones (parámetros faltantes)"},CODE_ERROR_INCLUMPLIMIENTO);
+	}
+	
 	var id_category = db.categories.findOneSync({"name":name,"delete_date =":null});
 
 	if (typeof id_category !== "undefined"){
+		logger.error('Error al agregar una categoría, ya existe -> name: '+ name);
 		return common.handleError(res,{code:2,message:"La categoría ya existe"},CODE_ERROR_UNEXPECTED);
 	}
 
 	var new_category = {};
-	new_position["name"] = name;
-	new_position["description"] = description;
+	new_category["name"] = name;
+	new_category["description"] = description;
 
-	db.job_positions.insert(new_category, function(err, category){
+	db.categories.insert(new_category, function(err, category){
 		if (err){
-			console.log(err);
+			logger.error('Error al agregar la categoría: ' + err.message);
  			return common.handleError(res,{code:ERROR_INSERT_DB,message:"Error al agregar la categoría"},CODE_ERROR_UNEXPECTED);
  		}
 
@@ -376,7 +397,8 @@ exports.deleteCategory = function (req, res) {
 
 	var id_category = db.categories.findOneSync({"name":category,"delete_date =":null});
 
-	if (typeof id_category !== "undefined"){
+	if (typeof id_category === "undefined"){
+		logger.error('Error al borrar categoría, no existe: ' + category);
 		return common.handleError(res,{code:ERROR_PARAMETER_INVALID,message:"No existe el recurso solicitado "},CODE_ERROR_INEXISTENTE);
 	}
 
@@ -387,13 +409,14 @@ exports.deleteCategory = function (req, res) {
 	var count_jobs = db.job_positions.countSync({"id_category":id_category});
 	
 	if (count_jobs + count_skills > 0){
+		logger.error('Error al agregar la categoría. Se encuentra en uso. contiene ' + count_skills + " skills y " + count_jobs +" jobs positions.");
 		return common.handleError(res,{code:22,message:"El la categoría se encuentra en uso, contiene " + count_skills + " skills y " + count_jobs +" jobs positions." },CODE_ERROR_UNEXPECTED);	
 	}
 
 	//TODO: ver si es mejor borrar por completo de la db o setear la fecha de baja y mantener los datos
 	db.categories.destroy({"id":id_category}, function(err, category){
 		if (err){
-			console.log(err);
+			logger.error('Error al borrar categoría: ' + err.message);
  			return common.handleError(res,{code:ERROR_DESTROY_DATA_DB_DB,message:"Error al eliminar la categoría"},CODE_ERROR_UNEXPECTED);
  		}
 
@@ -409,12 +432,14 @@ exports.updateCategory = function (req, res) {
 	var description = req.body.description;
 
 	if ((typeof name === "undefined") || (typeof description === "undefined")){
+		logger.error('Error al modificar la categoría: parametros faltantes.');
 		return common.handleError(res,{code:ERROR_PARAMETER_MISSING,message:"Incumplimiento de precondiciones (parámetros faltantes)"},CODE_ERROR_INCLUMPLIMIENTO);
 	}
 
 	var id_category = db.categories.findOneSync({"name":category,"delete_date =":null});
 
 	if (typeof id_category === "undefined"){
+		logger.error('Error al modificar la categoría: no existe.');
 		return common.handleError(res,{code:ERROR_PARAMETER_INVALID,message:"No existe el recurso solicitado "},CODE_ERROR_INEXISTENTE);
 	}
 
@@ -425,13 +450,14 @@ exports.updateCategory = function (req, res) {
 	var count_jobs = db.job_positions.countSync({"id_category":id_category});
 	
 	if (count_jobs + count_skills > 0){
+		logger.error('Error al modificar la categoría. Se encuentra en uso. contiene ' + count_skills + " skills y " + count_jobs +" jobs positions.");
 		return common.handleError(res,{code:22,message:"El la categoría se encuentra en uso, contiene " + count_skills + " skills y " + count_jobs +" jobs positions." },CODE_ERROR_UNEXPECTED);	
 	}
 
 	//TODO: ver si es mejor borrar por completo de la db o setear la fecha de baja y mantener los datos
 	db.categories.update({"id":id_category,"name":name,"description":description}, function(err, category){
 		if (err){
-			console.log(err);
+			logger.error('Error al modificar la categoría: ' + err.message);
  			return common.handleError(res,{code:ERROR_UPDATE_DB,message:"Error al modificar la categoría"},CODE_ERROR_UNEXPECTED);
  		}
 
