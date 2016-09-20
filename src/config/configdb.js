@@ -9,7 +9,7 @@ exports.jsonConfigDB = function(){
 	        "user"        : process.env['PGUSER_USER'],
 	        "password"    : process.env['PGUSER_PASSWORD'],
 	        "host"        : process.env['DATABASE_URL'],
-	        "timeToWaitDB": 40000,
+	        "timeToWaitDB": 10000,
 	        "addons"      : ""
 	    };
 
