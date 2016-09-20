@@ -1,3 +1,6 @@
+os:
+  - linux
+  
 sudo: required
 
 language: node_js
@@ -19,6 +22,7 @@ branches:
 before_install:
   - docker-compose build
   - docker-compose up -d
+  - docker ps
 
 before_script:
   - sudo apt-get install -y python python-pycurl python-pip
