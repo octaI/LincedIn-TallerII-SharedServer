@@ -45,9 +45,14 @@ function configureMassive(){
 
 setTimeout(configureMassive,configDB.timeToWaitDB);
 
+app.route('/*').get(function(req, res){
+	return res.sendFile(path.join(__dirname + '/src/webapp/index.html'));
+});
+
+
 
 app.get('/', function (req, res) {
-	res.sendFile(path.join(__dirname + '/src/index.html'));
+	res.sendFile(path.join(__dirname + '/src/webapp/index.html'));
 });
 
 //Metodos get de la api rest
