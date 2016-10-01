@@ -21,17 +21,7 @@ var path = require('path')
 var massiveInstance;
 
 var configDB = config.jsonConfigDB();
-/*
-var configDB = {
-	    	"name"		  : "PC",
-	        "db"          : "lincedinsharedserver",
-	        "user"        : "lince",
-	        "password"    : "tallerii",
-	        "host"        : "localhost",
-	        "timeToWaitDB": 0,
-	        "addons"      : ""
-	    };
-*/
+
 
 logger.debug('SharedServer configurado para utilizar base de datos de ' + configDB.name); 
 
