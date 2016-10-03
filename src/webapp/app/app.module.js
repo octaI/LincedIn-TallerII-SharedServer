@@ -1,7 +1,7 @@
 angular.module('lincedinapp', ['ngMaterial'])
 	.config(function($mdThemingProvider) {
   		$mdThemingProvider.theme('default')
-    	.primaryPalette(‘orange’, {
+    	.primaryPalette('orange', {
       		'default': '500',
       		'hue-1': '200',
       		'hue-2': '800'
