@@ -1,3 +1,3 @@
 appmodule.controller('homeController',function($scope){
-	$scope.message = "Este es el home";
+	$scope.message = "Bienvenido a LincedIn SharedServer";
 });

@@ -15,7 +15,11 @@
 		<script src="app/components/home/homeService.js"></script>
 		<script src="app/components/habilidades/habilidadesController.js"></script>
 	</head>
-	<body ng-controller ="homeController">
+	<body ng-cloak layout="column" ng-controller ="homeController">
+
+		<md-toolbar layout="row" class="md-toolbar-tools md-primary">
+    		<h1>LincedIn - Shared Server</h1>
+  		</md-toolbar>
 
 	  <header>
             <nav class="navbar navbar-default">
