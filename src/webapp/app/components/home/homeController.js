@@ -1,8 +1,3 @@
-angular.module('lincedinapp')
-.controller('homeController',homeController);
-
-homeController.$inject = ['$scope', '$http'];
-
-function homeController($scope){
-	$scope.message = "Esto funciona";
-}
+appmodule.controller('homeController',function($scope){
+	$scope.message = "Este es el home";
+});

@@ -1,12 +1,17 @@
-lincedinApp.config(function($routeProvider){
+var appmodule = angular.module('lincedinapp',['ngRoute']);
+
+appmodule.config(function($routeProvider){
 	$routeProvider
 
 	.when('/',{
-		templateUrl : 'components/home/homeView.html'
+		templateUrl : 'app/components/home/homeView.html',
 		controller : 'homeController'
 	})
 
-	.otherwise({
-		redirectTo : '/'
-	})
+	.when('/habilidades',{
+		templateUrl : 'app/components/habilidades/habilidadesView.html',
+		controller : 'habilidadesController'
+	});
+
+
 });
