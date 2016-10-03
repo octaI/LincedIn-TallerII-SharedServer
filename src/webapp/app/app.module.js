@@ -13,7 +13,7 @@ appmodule.config(function($routeProvider){
 		controller : 'habilidadesController'
 	});
 
-	
+
 });
 
 
