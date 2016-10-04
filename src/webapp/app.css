@@ -1,0 +1,22 @@
+html, body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+
+#content {
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 5px;
+  padding-margin: 5px;
+}
+
+.category {
+	padding: 8px;
+	margin: 2px;
+}
+.category h1 {
+	text-align: center;
+}

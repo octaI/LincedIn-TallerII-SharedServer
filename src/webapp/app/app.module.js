@@ -1,4 +1,6 @@
-angular.module('lincedinapp', ['ngMaterial'])
+var appmodule = angular.module('lincedinapp',['ngMaterial']);
+
+appmodule
 	.config(function($mdThemingProvider) {
   		$mdThemingProvider.theme('default')
     	.primaryPalette('orange', {
