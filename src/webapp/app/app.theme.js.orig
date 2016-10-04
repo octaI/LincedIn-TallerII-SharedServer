@@ -1,0 +1,14 @@
+appmodule.config(function($mdThemingProvider){
+	$mdThemingProvider.theme('default')
+<<<<<<< HEAD
+		.primaryPalette('blue-grey',{
+			'default': '900',
+			'hue-1' : '500'
+		})
+		.accentPalette('yellow');
+=======
+		.primaryPalette('orange')
+		.accentPalette('deep-orange')
+		.warnPalette('deep-orange');
+>>>>>>> b68ce40b366bb3c125b9510cb91c414a7aba993c
+});

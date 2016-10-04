@@ -1,0 +1,16 @@
+<<<<<<< HEAD
+
+<a href="#/categorias" style="text-decoration:none;"><div class="md-whiteframe-2dp category">
+=======
+<a href="#/categorias" style="text-decoration:none;"><div class="md-whiteframe-2dp card">
+>>>>>>> b68ce40b366bb3c125b9510cb91c414a7aba993c
+	<h1>Categorías</h1>
+</div></a>
+
+<a href="#/habilidades" style="text-decoration:none;"><div class="md-whiteframe-2dp card">
+	<h1>Habilidades</h1>
+</div></a>
+
+<a href="#/puestos" style="text-decoration:none;"><div class="md-whiteframe-2dp card">
+	<h1>Puestos</h1>
+</div></a>
