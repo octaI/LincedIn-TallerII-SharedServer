@@ -11,7 +11,11 @@ appmodule.config(function($routeProvider){
 	.when('/habilidades',{
 		templateUrl : 'app/components/habilidades/habilidadesView.html',
 		controller : 'habilidadesController'
-	});
+	})
 
+	.when('/puestos',{
+		templateUrl : 'app/components/puestos/puestosView.html',
+		controller : 'puestosController'
+	});
 
 });
