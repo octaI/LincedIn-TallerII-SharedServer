@@ -1,5 +1,3 @@
-var appmodule = angular.module('lincedinapp',['ngRoute']);
-
 appmodule.config(function($routeProvider){
 	$routeProvider
 
