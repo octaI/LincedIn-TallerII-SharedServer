@@ -47,7 +47,7 @@ setTimeout(configureMassive,configDB.timeToWaitDB);
 
 app.use(express.static(__dirname + '/src/webapp'));
 
-app.route('/*').get(function(req, res){
+app.route('/').get(function(req, res){
 	 res.sendFile(path.join(__dirname + '/src/webapp/index.html'));
 });
 
