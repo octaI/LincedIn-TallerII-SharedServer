@@ -1,11 +1,15 @@
+<div class='md-whiteframe-4dp card'>
+
 <h1>{{title}}</h1>
 
 <md-list ng-controller='habilidadesController' ng-cloak>
-  <md-list-item class="md-3-line" ng-repeat="skill in skills">
-    <div class="md-list-item-text">
+  <md-list-item class="md-2-line" ng-repeat="skill in skills">
+    <div class="md-list-item-text md-whiteframe-2dp card">
       <h3>{{skill.name}}</h3>
       <p>{{skill.category}}</p>
       <p>{{skill.description}}</p>
     </div>
   </md-list-item>
 </md-list>
+
+</div>
