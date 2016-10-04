@@ -1,11 +1,11 @@
-<h1>Prueba de Habilidades</h1>
+<h1>{{title}}</h1>
 
-
-
-<label>Nombre1:</label>
-			<input type="text" ng-model="yourName" placeholder="Enter a name here">
-			<hr>
-			<h1>Hola como va {{yourName}}!</h1>
-
-<md-button class="md-primary"> Click me</md-button>
-<h3>{{message}}</h3>
+<md-list ng-controller='habilidadesController as controller' ng-cloak>
+  <md-list-item class="md-3-line" ng-repeat="skill in controller.skills">
+    <div class="md-list-item-text">
+      <h3>{{name}}</h3>
+      <p>{{category}}</p>
+      <p>{{description}}</p>
+    </div>
+  </md-list-item>
+</md-list>
