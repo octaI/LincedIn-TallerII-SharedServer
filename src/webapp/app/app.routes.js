@@ -8,6 +8,11 @@ appmodule.config(function($routeProvider){
 		controller : 'homeController'
 	})
 
+	.when('/categorias',{
+		templateUrl : 'app/components/categorias/categoriasView.html',
+		controller : 'categoriasController'
+	})
+
 	.when('/habilidades',{
 		templateUrl : 'app/components/habilidades/habilidadesView.html',
 		controller : 'habilidadesController'
