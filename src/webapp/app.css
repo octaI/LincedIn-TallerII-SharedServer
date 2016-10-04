@@ -18,5 +18,7 @@ html, body {
 	margin: 8px;
 }
 .category h1 {
+	color: peru;
+	text-decoration: none;
 	text-align: center;
 }
