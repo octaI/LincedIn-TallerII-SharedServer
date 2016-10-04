@@ -1,10 +1,14 @@
-<h1>Prueba de Categorias</h1>
+<div class='md-whiteframe-4dp card'>
 
+<h1>{{title}}</h1>
 
+<md-list ng-controller='categoriasController' ng-cloak>
+  <md-list-item class="md-2-line" ng-repeat="category in categories">
+    <div class="md-list-item-text md-whiteframe-2dp card">
+      <h3>{{category.name}}</h3>
+      <p>{{category.description}}</p>
+    </div>
+  </md-list-item>
+</md-list>
 
-<label>Nombre1:</label>
-			<input type="text" ng-model="yourName" placeholder="Enter a name here">
-			<hr>
-			<h1>Hola como va {{yourName}}!</h1>
-
-<h3>{{message}}</h3>
+</div>
