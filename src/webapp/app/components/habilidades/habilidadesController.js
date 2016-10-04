@@ -6,9 +6,9 @@ appmodule.controller('habilidadesController', function($scope, $http){
 
 	function getAllSkills() {
     	$http.get('/skills')
-        	.then(function (data) {
+        	.then(function (response) {
            	 	// just obtain the promise data
-            	$scope.skills=data.skills;
+            	$scope.skills=response.data.skills;
         	}, function (err) {
             	// error handling
             	console.log("Error on retrieving skills");

@@ -1,11 +1,11 @@
 <h1>{{title}}</h1>
 
-<md-list ng-controller='habilidadesController as controller' ng-cloak>
-  <md-list-item class="md-3-line" ng-repeat="skill in controller.skills">
+<md-list ng-controller='habilidadesController' ng-cloak>
+  <md-list-item class="md-3-line" ng-repeat="skill in skills">
     <div class="md-list-item-text">
-      <h3>{{name}}</h3>
-      <p>{{category}}</p>
-      <p>{{description}}</p>
+      <h3>{{skill.name}}</h3>
+      <p>{{skill.category}}</p>
+      <p>{{skill.description}}</p>
     </div>
   </md-list-item>
 </md-list>
