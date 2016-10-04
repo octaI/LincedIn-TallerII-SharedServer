@@ -1,8 +1,9 @@
-<div class='md-whiteframe-4dp card'>
-
+<md-progress-linear md-mode="indeterminate" class="md-warn progress-top"></md-progress-linear>
+<div class='md-whiteframe-4dp card-container'>
+ 
 	<h1>{{title}}</h1>
 
-	<md-list ng-controller='habilidadesController' ng-cloak>
+	<md-list ng-controller='habilidadesController as skillsCtrl' ng-cloak>
 	  <md-list-item class="md-2-line" ng-repeat="skill in skills">
 	    <div class="md-list-item-text md-whiteframe-2dp card">
 	      <div layout="row">

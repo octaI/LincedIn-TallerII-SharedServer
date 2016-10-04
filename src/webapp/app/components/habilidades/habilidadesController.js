@@ -1,23 +1,28 @@
 appmodule.controller('habilidadesController', function($scope, $http, $mdDialog){
 	$scope.title="Habilidades";
+  $scope.isLoading = false;
 
 	$scope.skills=[];
 	getAllSkills();
 	function getAllSkills() {
+      $scope.isLoading = true;
     	$http.get('/skills')
         	.then(function (response) {
            	 	// just obtain the promise data
                 console.log(response);
             	$scope.skills=response.data.skills;
+              $scope.isLoading = false;
         	}, function (err) {
             	// error handling
                 console.log(response);
             	console.log("Error on retrieving all skills");
+              $scope.isLoading = false;
         	}
         );
     };
 
     function deleteSkill(category, name) {
+        $scope.isLoading = true;
         $http.delete('/skills/categories/' + category + '/' + name)
             .then(
                 function (response) {
@@ -28,6 +33,7 @@ appmodule.controller('habilidadesController', function($scope, $http, $mdDialog)
                     // error handling
                     console.log(response);
                     console.log("Error on deleting skill " + name + " from category " + category);
+                    $scope.isLoading = false;
                 }
             );
     };
