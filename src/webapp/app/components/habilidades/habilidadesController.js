@@ -28,6 +28,18 @@ appmodule.controller('habilidadesController', function($scope, $http, $mdDialog)
       );
   };
 
+  function editSkill(skill, category, name) {
+    $scope.isLoading = true;
+    $http.put('/skills/categories/' + category + '/' + name, skill)
+      .then(function (response) {
+          $scope.skills.push(skill);
+          getAllSkills();
+        }, function (err) {
+          $scope.isLoading = false;
+        }
+      );
+  };
+
   function deleteSkill(name, category) {
       $scope.isLoading = true;
       $http.delete('/skills/categories/' + category + '/' + name)
@@ -66,6 +78,22 @@ appmodule.controller('habilidadesController', function($scope, $http, $mdDialog)
       if (answer !== 'not useful') {
         skill = {'name': answer.name, 'description': answer.description};
         addSkill(skill, answer.category);
+      }
+    },function(){
+    });
+  };
+
+  $scope.showEditSkillDialog = function(ev, skillToEdit) {
+    $mdDialog.show({
+      controller: dialogController,
+      template: '<md-dialog aria-label="Add skill"> <div class="md-padding"> <form name="skillForm"> <div layout="column" layout-sm="column"> <md-input-container flex> <label>Habilidad</label> <input ng-model="skill.name" placeholder="Nombre de la habilidad"> </md-input-container>  <md-input-container flex> <label>Categoría</label> <input ng-model="skill.category" placeholder="Categoría de la habilidad"> </md-input-container>  <md-input-container flex> <label>Descripción</label> <textarea ng-model="skill.description" columns="1" md-maxlength="150" placeholder="Descripción de la habilidad"></textarea> </md-input-container> </form> </div> <md-dialog-actions layout="row"> <md-button ng-click="answer(\'not useful\')" class="md-primary"> Cancelar </md-button> <md-button ng-click="answer(skill)" class="md-primary"> Guardar </md-button> </md-dialog-actions></md-dialog>',
+      targetEvent: ev,
+      clickOutsideToClose: true
+    })
+    .then(function(answer) {
+      if (answer !== 'not useful') {
+        skill = {'name': answer.name, 'category': answer.category, 'description': answer.description};
+        editSkill(skill, skillToEdit.category, skillToEdit.name);
       }
     },function(){
     });
