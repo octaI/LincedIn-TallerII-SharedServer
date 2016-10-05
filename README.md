@@ -30,3 +30,9 @@ Server NodeJS del TP.
   - 2- Para correr la imagen en los correspondientes containers, hacer ``"$ docker-compose up"`` y esperar a ver el siguiente mensaje en la terminal: `` db_1 | LOG:  autovacuum launcher started `` </br>
   - 3- Con el comando ``sudo docker ps`` podes verificar que los containers esten corriendo. </br>
   - 4- Luego se puede usar la REST API en `` http://localhost:8080/ ``.
+
+
+## Test API
+  - Instalar las dependencias: ``sudo apt-get install -y python python-pycurl python-pip && sudo pip install pyresttest``
+  - Iniciar el servidor y ejecutar los archivos de test de la siguiente manera: `` resttest.py <dirección de servidor ej:http://localhost:8080> <archivo de test ej:src/test/jobsPositionsTest.yaml> ``
+  - más info sobre la herramienta para ejecutar los test [aquí]()

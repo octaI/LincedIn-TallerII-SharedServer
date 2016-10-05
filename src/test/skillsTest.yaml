@@ -1,0 +1,83 @@
+# TEST for API LincedIn shared server
+---
+- config:
+    - testset: "Tests Skills"
+
+- test:
+    - name: "Listado de skills"
+    - url: "/skills"
+- test:
+    - name: "Listado de skills por categoria"
+    - url: "/skills/categories/software"
+- test:
+    - name: "Alta de skill"
+    - url: "/skills/categories/software"
+    - method: 'POST'
+    - body: '{"name": "python","description": "python programming lenguage"}'
+    - headers: {Content-Type: application/json}
+    - expected_status: [201]
+    - validators:
+        - compare: {header: content-type, comparator: contains, expected: 'json'}
+        - compare: {jsonpath_mini: 'name', expected: 'python'}
+        - compare: {jsonpath_mini: 'description', expected: 'python programming lenguage'}
+        - compare: {jsonpath_mini: 'category', expected: 'software'}
+- test:
+    - name: "Alta de skills con categoria invalida"
+    - url: "/skills/categories/invalidcategory"
+    - method: 'POST'
+    - body: '{"name": "perl","description": "perl programming lenguage"}'
+    - headers: {Content-Type: application/json}
+    - expected_status: [404]
+- test:
+    - name: "Alta de skills con faltante de parámetros"
+    - url: "/skills/categories/software"
+    - method: 'POST'
+    - body: '{"name": "perl"}'
+    - headers: {Content-Type: application/json}
+    - expected_status: [400]
+- test:
+    - name: "Modificación de skills - nombre"
+    - url: "/skills/categories/software/python"
+    - method: 'PUT'
+    - body: '{"name": "Python","category": "software" ,"description": "python programming lenguage"}'
+    - headers: {Content-Type: application/json}
+    - expected_status: [200]
+    - validators:
+        - compare: {header: content-type, comparator: contains, expected: 'json'}
+        - compare: {jsonpath_mini: 'name', expected: 'Python'}
+        - compare: {jsonpath_mini: 'description', expected: 'python programming lenguage'}
+        - compare: {jsonpath_mini: 'category', expected: 'software'}
+- test:
+    - name: "Modificación de skills - categoria"
+    - url: "/skills/categories/software/Python"
+    - method: 'PUT'
+    - body: '{"name": "Python","category": "music" ,"description": "python programming lenguage"}'
+    - headers: {Content-Type: application/json}
+    - expected_status: [200]
+    - validators:
+        - compare: {header: content-type, comparator: contains, expected: 'json'}
+        - compare: {jsonpath_mini: 'name', expected: 'Python'}
+        - compare: {jsonpath_mini: 'description', expected: 'python programming lenguage'}
+        - compare: {jsonpath_mini: 'category', expected: 'music'}
+- test:
+    - name: "Modificación de skills, faltante de parámetros"
+    - url: "/skills/categories/software/Python"
+    - method: 'PUT'
+    - body: '{"name": "Python","description": "python programming lenguage"}'
+    - headers: {Content-Type: application/json}
+    - expected_status: [400]
+- test:
+    - name: "Baja de skills"
+    - url: "/skills/categories/music/Python"
+    - method: 'DELETE'
+    - expected_status: [204]
+- test:
+    - name: "Baja de skills no existe nombre"
+    - url: "/skills/categories/software/invalidName"
+    - method: 'DELETE'
+    - expected_status: [404]
+- test:
+    - name: "Baja de skills no existe categoría"
+    - url: "/skills/categories/invalidName/Python"
+    - method: 'DELETE'
+    - expected_status: [404]

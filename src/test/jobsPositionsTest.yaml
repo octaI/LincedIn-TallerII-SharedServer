@@ -1,0 +1,83 @@
+# TEST for API LincedIn shared server
+---
+- config:
+    - testset: "Tests Jobs Positions"
+
+- test:
+    - name: "Listado de puestos"
+    - url: "/job_positions"
+- test:
+    - name: "Listado de puestos por categoria"
+    - url: "/job_positions/categories/software"
+- test:
+    - name: "Alta de puestos"
+    - url: "/job_positions/categories/software"
+    - method: 'POST'
+    - body: '{"name": "Tester","description": "Persona que realiza los test."}'
+    - headers: {Content-Type: application/json}
+    - expected_status: [201]
+    - validators:
+        - compare: {header: content-type, comparator: contains, expected: 'json'}
+        - compare: {jsonpath_mini: 'name', expected: 'Tester'}
+        - compare: {jsonpath_mini: 'description', expected: 'Persona que realiza los test.'}
+        - compare: {jsonpath_mini: 'category', expected: 'software'}
+- test:
+    - name: "Alta de puestos con categoria invalida"
+    - url: "/job_positions/categories/invalidcategory"
+    - method: 'POST'
+    - body: '{"name": "Tester1","description": "Persona que realiza los test."}'
+    - headers: {Content-Type: application/json}
+    - expected_status: [404]
+- test:
+    - name: "Alta de puestos con faltante de parámetros"
+    - url: "/job_positions/categories/software"
+    - method: 'POST'
+    - body: '{"name": "Tester1"}'
+    - headers: {Content-Type: application/json}
+    - expected_status: [400]
+- test:
+    - name: "Modificación de puestos - nombre"
+    - url: "/job_positions/categories/software/Tester"
+    - method: 'PUT'
+    - body: '{"name": "Testeador","category": "software" ,"description": "Persona que realiza los test."}'
+    - headers: {Content-Type: application/json}
+    - expected_status: [200]
+    - validators:
+        - compare: {header: content-type, comparator: contains, expected: 'json'}
+        - compare: {jsonpath_mini: 'name', expected: 'Testeador'}
+        - compare: {jsonpath_mini: 'description', expected: 'Persona que realiza los test.'}
+        - compare: {jsonpath_mini: 'category', expected: 'software'}
+- test:
+    - name: "Modificación de puestos - categoria"
+    - url: "/job_positions/categories/software/Testeador"
+    - method: 'PUT'
+    - body: '{"name": "Testeador","category": "music" ,"description": "Persona que realiza los test."}'
+    - headers: {Content-Type: application/json}
+    - expected_status: [200]
+    - validators:
+        - compare: {header: content-type, comparator: contains, expected: 'json'}
+        - compare: {jsonpath_mini: 'name', expected: 'Testeador'}
+        - compare: {jsonpath_mini: 'description', expected: 'Persona que realiza los test.'}
+        - compare: {jsonpath_mini: 'category', expected: 'music'}
+- test:
+    - name: "Modificación de puestos, faltante de parámetros"
+    - url: "/job_positions/categories/software/Testeador"
+    - method: 'PUT'
+    - body: '{"name": "tester"}'
+    - headers: {Content-Type: application/json}
+    - expected_status: [400]
+- test:
+    - name: "Baja de puestos"
+    - url: "/job_positions/categories/music/Testeador"
+    - method: 'DELETE'
+    - expected_status: [204]
+- test:
+    - name: "Baja de puestos no existe nombre"
+    - url: "/job_positions/categories/software/invalidName"
+    - method: 'DELETE'
+    - expected_status: [404]
+- test:
+    - name: "Baja de puestos no existe categoría"
+    - url: "/job_positions/categories/invalidName/Testeador"
+    - method: 'DELETE'
+    - expected_status: [404]

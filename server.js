@@ -22,6 +22,7 @@ var massiveInstance;
 
 var configDB = config.jsonConfigDB();
 
+
 logger.debug('SharedServer configurado para utilizar base de datos de ' + configDB.name); 
 
 var configApi = {};
@@ -80,7 +81,7 @@ app.get('/skills', api.skills);
 app.get('/skills/categories/:category', api.findSkillsByCategory);
 
 //alta de skill
-app.post('/skill/categories/:category',api.addSkill);
+app.post('/skills/categories/:category',api.addSkill);
 
 //baja de skill
 app.delete('/skills/categories/:category/:name',api.deleteSkill);

@@ -1,0 +1,27 @@
+
+[2016-09-20 18:19:58.702] [DEBUG] [default] - SharedServer configurado para utilizar base de datos de HEROKU
+[2016-09-20 18:20:01.629] [DEBUG] [default] - SharedServer start
+[2016-09-20 18:20:01.629] [DEBUG] [default] - API configured
+[2016-09-20 18:20:30.929] [ERROR] [default] - Error al agregar un puesto de trabajo en la base de datos, ya existe la entrada: Tester para la categoria: software
+[2016-09-20 18:20:31.323] [ERROR] [default] - Error al agregar un puesto de trabajo, categoría inexistente: invalidcategory
+[2016-09-20 18:20:31.324] [ERROR] [default] - Error al agregar un puesto de trabajo, faltan parámetros -> name: Tester1 - description: undefined
+[2016-09-20 18:20:34.427] [ERROR] [default] - Error al modificar un puesto de trabajo, faltan parámetros -> name: tester - description: undefined - categoría: undefined
+[2016-09-20 18:20:36.368] [ERROR] [default] - Error al borrar un puesto de trabajo, es inexistente: invalidName
+[2016-09-20 18:20:36.756] [ERROR] [default] - Error al borrar un puesto de trabajo, categoría inexistente: invalidName
+[2016-09-20 18:22:31.503] [ERROR] [default] - Error al borrar un puesto de trabajo, es inexistente: Tester
+[2016-09-20 18:22:48.933] [ERROR] [default] - Error al agregar un puesto de trabajo, categoría inexistente: invalidcategory
+[2016-09-20 18:22:48.934] [ERROR] [default] - Error al agregar un puesto de trabajo, faltan parámetros -> name: Tester1 - description: undefined
+[2016-09-20 18:22:52.040] [ERROR] [default] - Error al modificar un puesto de trabajo, faltan parámetros -> name: tester - description: undefined - categoría: undefined
+[2016-09-20 18:22:53.987] [ERROR] [default] - Error al borrar un puesto de trabajo, es inexistente: invalidName
+[2016-09-20 18:22:54.376] [ERROR] [default] - Error al borrar un puesto de trabajo, categoría inexistente: invalidName
+[2016-09-20 18:23:14.972] [ERROR] [default] - Error al agregar una skill cateforía inexistente: invalidcategory
+[2016-09-20 18:23:14.973] [ERROR] [default] - Error al agregar una skill, faltan parámetros -> name: perl - description: undefined
+[2016-09-20 18:23:18.068] [ERROR] [default] - Error al modificar una skill, faltan parámetros -> name: Python - description: python programming lenguage - categoría: undefined
+[2016-09-20 18:23:20.003] [ERROR] [default] - Error al borrar una skill, no existe: invalidName
+[2016-09-20 18:23:20.393] [ERROR] [default] - Error al borrar una skill, categoría inexistente: invalidName
+[2016-09-20 18:23:25.455] [ERROR] [default] - Error al agregar una categoría, faltan parámetros -> name: sport - description: undefined
+[2016-09-20 18:23:27.001] [ERROR] [default] - Error al modificar la categoría: parametros faltantes.
+[2016-09-20 18:23:27.389] [ERROR] [default] - Error al modificar la categoría: no existe.
+[2016-09-20 18:23:28.548] [ERROR] [default] - Error al modificar la categoría. Se encuentra en uso. contiene 2 skills y 2 jobs positions.
+[2016-09-20 18:23:30.877] [ERROR] [default] - Error al borrar categoría, no existe: invalidName
+[2016-09-20 18:23:32.034] [ERROR] [default] - Error al agregar la categoría. Se encuentra en uso. contiene 2 skills y 2 jobs positions.
