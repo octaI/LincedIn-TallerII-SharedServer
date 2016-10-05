@@ -1,15 +1,28 @@
 <div class='md-whiteframe-4dp card'>
 
-<h1>{{title}}</h1>
+	<h1>{{title}}</h1>
 
-<md-list ng-controller='habilidadesController' ng-cloak>
-  <md-list-item class="md-2-line" ng-repeat="skill in skills">
-    <div class="md-list-item-text md-whiteframe-2dp card">
-      <h3>{{skill.name}}</h3>
-      <p>{{skill.category}}</p>
-      <p>{{skill.description}}</p>
-    </div>
-  </md-list-item>
-</md-list>
+	<md-list ng-controller='habilidadesController' ng-cloak>
+	  <md-list-item class="md-2-line" ng-repeat="skill in skills">
+	    <div class="md-list-item-text md-whiteframe-2dp card">
+	      <div layout="row">
+	      	<div layout="column" layout-align="center start">
+		      	<h3 md-colors="{color:'accent'}">{{skill.name}}</h3>
+		      	<p style="font-weight:bold;">{{skill.category}}</p>
+		      	<p>{{skill.description}}</p>
+	      	</div>
+	      	<span flex></span>
+	      	<div layout="row" layout-align="center end">
+	      		<md-button class="md-icon-button md-primary md-raised" aria-label="Edit button">
+  					<md-icon md-svg-icon="app/img/ic_mode_edit.svg"></md-icon>
+				</md-button>
+	      		<md-button class="md-icon-button md-primary md-raised" aria-label="Delete button" ng-click="showConfirmDeleteSkill($event, skill)">
+  					<md-icon md-svg-icon="app/img/ic_delete_forever.svg"></md-icon>
+				</md-button>
+	      	</div>	
+	      </div>
+	    </div>
+	  </md-list-item>
+	</md-list>
 
 </div>

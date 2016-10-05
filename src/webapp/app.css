@@ -31,6 +31,14 @@ md-toolbar h1 {
 	text-align: center;
 }
 
-.material-icons {
-  color: #212121;
+<<<<<<< HEAD
+
+=======
+.md-icon-button {
+  margin: 4px;
+>>>>>>> aa2b2f559973a756b7cc6bb5a9977380ca588422
 }
+
+.material-icons.darkgrey600 {
+  color: #212121;
+  }
