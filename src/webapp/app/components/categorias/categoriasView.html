@@ -2,7 +2,7 @@
 
 <h1>{{title}}</h1>
 
-<md-list ng-controller='categoriasController' ng-cloak>
+<md-list ng-controller='categoriasController' ng-cloak ng-init="initFirst()">
   <md-list-item class="md-2-line" ng-repeat="category in categories">
     <div class="md-list-item-text md-whiteframe-2dp card">
       <h3>{{category.name}}</h3>
@@ -10,5 +10,10 @@
     </div>
   </md-list-item>
 </md-list>
+
+
+<md-button class="md-fab md-fab-bottom-right" aria-label="Agregar una categoria" ng-click="submitCategory($event)">
+	<md-icon <i class="material-icons">add</i> aria-label="Add"></md-icon>
+</md-button>
 
 </div>

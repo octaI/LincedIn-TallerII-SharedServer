@@ -30,3 +30,7 @@ md-toolbar h1 {
 	text-decoration: none;
 	text-align: center;
 }
+
+.material-icons {
+  color: #212121;
+}
