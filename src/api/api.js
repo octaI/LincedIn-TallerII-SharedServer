@@ -348,10 +348,10 @@ exports.addCategory = function (req, res) {
 	}
 
 	var new_category = {};
-	new_position["name"] = name;
-	new_position["description"] = description;
+	new_category["name"] = name;
+	new_category["description"] = description;
 
-	db.job_positions.insert(new_category, function(err, category){
+	db.categories.insert(new_category, function(err, category){
 		if (err){
 			console.log(err);
  			return common.handleError(res,{code:ERROR_INSERT_DB,message:"Error al agregar la categoría"},CODE_ERROR_UNEXPECTED);
