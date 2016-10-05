@@ -13,10 +13,10 @@
 				    	<p>{{skill.description}}</p>
 					</div>
 			    	<div layout="row" layout-align="center end">
-			      		<md-button class="md-icon-button md-primary md-raised" aria-label="Edit button">
+			      		<md-button class="md-icon-button md-primary md-raised" aria-label="Edit skill button">
 		  					<md-icon md-svg-icon="app/img/ic_mode_edit.svg"></md-icon>
 						</md-button>
-			      		<md-button class="md-icon-button md-primary md-raised" aria-label="Delete button" ng-click="showConfirmDeleteSkill($event, skill)">
+			      		<md-button class="md-icon-button md-primary md-raised" aria-label="Delete skill button" ng-click="showConfirmDeleteSkill($event, skill)">
 		  					<md-icon md-svg-icon="app/img/ic_delete_forever.svg"></md-icon>
 						</md-button>
 			    	</div>
@@ -24,6 +24,9 @@
 			  </md-list-item>
 			</md-list>
 		
+		<md-button class="md-fab md-fab-bottom-right" aria-label="Add skill button" ng-click="showAddSkillDialog($event)" style='position: fixed'>
+			<md-icon md-font-library="material-icons">add</md-icon>
+		</md-button>
 
 	</div>
 </div>
