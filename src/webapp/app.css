@@ -13,30 +13,34 @@ md-toolbar h1 {
 }
 
 #content {
-  padding-left: 40px;
-  padding-right: 40px;
-  padding-top: 5px;
-  padding-margin: 5px;
   background-color: #EEEEEE;
 }
 
-.card {
-	padding: 10px;
-	margin: 8px;
+.card-container {
+  margin: 10px 40px 10px 40px;
+  padding: 10px;
   background-color: white;
 }
-.card h1 {
+
+.card-container h1 {
 	color: #FB8C00;
 	text-decoration: none;
 	text-align: center;
 }
-
-
+.card {
+  padding: 10px;
+  margin: 8px;
+  background-color: white;
+}
 
 .md-icon-button {
   margin: 4px;
 }
 
+.progress-top div {
+  height: 2px;
+}
+
 .material-icons.darkgrey600 {
-  color: #00c853;
-  }
+  color: #212121;
+}
