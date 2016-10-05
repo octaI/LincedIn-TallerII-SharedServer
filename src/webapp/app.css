@@ -41,6 +41,14 @@ md-toolbar h1 {
   height: 2px;
 }
 
-.material-icons.darkgrey600 {
-  color: #212121;
+.md-button.lime500 {
+  background-color: #4caf50;
+}
+
+.md-icon.gray{
+  fill: #8BC34A;
+}
+
+.md-icon.white{
+  color: white;
 }

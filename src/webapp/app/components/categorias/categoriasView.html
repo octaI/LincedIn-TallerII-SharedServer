@@ -1,12 +1,28 @@
 <md-content class='md-whiteframe-4dp card'>
+<md-progress-linear md-mode="indeterminate" ng-disabled="!isLoading" class="md-warn progress-top"></md-progress-linear>
+<h1 md-colors="{color:'primary'}" align="center">{{title}}</h1>
 
-<h1>{{title}}</h1>
-
-<md-list ng-controller='categoriasController' ng-cloak ng-init="initFirst()">
-  <md-list-item class="md-2-line" ng-repeat="category in categories">
-    <div class="md-list-item-text md-whiteframe-2dp card">
-      <h3>{{category.name}}</h3>
-      <p>{{category.description}}</p>
+<md-list ng-controller='categoriasController' ng-cloak >
+  <md-list-item class="md-3-line" ng-repeat="category in categories">
+    <div class="md-list-item-text">
+    <div layout="row">
+    	<div layout="column" layout-align="center start">
+      		<h3 md-colors="{color:'accent'}">{{category.name}}</h3>
+      		
+      		<p>{{category.description}}</p>
+    	<md-divider ng-if="!$last"></md-divider>
+    	</div>
+    	<span flex></span>
+		      	<div layout="row" layout-align="center end">
+		      		<md-button class="md-icon-button md-primary md-raised" aria-label="Edit button">
+	  					<md-icon md-font-library="material-icons" ng-style="{color: '#616161'}">mode_edit</md-icon>
+					</md-button>
+		      		<md-button class="md-icon-button md-primary md-raised" aria-label="Delete button" ng-click="showConfirmDeleteCategory($event, category)">
+	  					<md-icon class="md-icon" md-font-library="material-icons" ng-style="{color: '#616161'}">delete_forever</md-icon>
+					</md-button>
+		      	</div>	
+    	
+    </div>
     </div>
   </md-list-item>
 </md-list>
@@ -14,7 +30,7 @@
 
 
 
-<md-button class="md-fab md-fab-bottom-right" aria-label="Agregar una categoria" ng-click="submitCategory($event)" style='position: fixed'>
-	<md-icon md-font-library="material-icons">add</md-icon>
+<md-button class="md-fab md-fab-top-right lime500" aria-label="Agregar una categoria" ng-click="submitCategory($event)" style='position: fixed'>
+	<md-icon md-font-library="material-icons" ng-style="{color : '#616161'}">add</md-icon>
 </md-button>
 </md-content>
