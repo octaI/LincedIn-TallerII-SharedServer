@@ -1,4 +1,4 @@
-appmodule.controller('habilidadesController', function($scope, $http, $mdDialog) {
+appmodule.controller('habilidadesController', function($scope, $http, $mdDialog, $mdToast) {
 	$scope.title="Habilidades";
   $scope.isLoading = false;
 
@@ -21,10 +21,12 @@ appmodule.controller('habilidadesController', function($scope, $http, $mdDialog)
     $scope.isLoading = true;
     $http.post('/skills/categories/' + category, skill)
       .then(function (response) {
+          showSimpleToast("La habilidad fue agregada correctamente a la base de datos.");
           $scope.skills.push(skill);
           getAllSkills();
         }, function (err) {
           $scope.isLoading = false;
+          showSimpleToast("Ha ocurrido un error. La habilidad no pudo ser agregada a la base de datos.");
         }
       );
   };
@@ -33,10 +35,12 @@ appmodule.controller('habilidadesController', function($scope, $http, $mdDialog)
     $scope.isLoading = true;
     $http.put('/skills/categories/' + category + '/' + name, skill)
       .then(function (response) {
+          showSimpleToast("La habilidad fue editada correctamente.");
           $scope.skills.push(skill);
           getAllSkills();
         }, function (err) {
           $scope.isLoading = false;
+          showSimpleToast("Ha ocurrido un error. La habilidad no pudo ser editada.");
         }
       );
   };
@@ -46,9 +50,11 @@ appmodule.controller('habilidadesController', function($scope, $http, $mdDialog)
       $http.delete('/skills/categories/' + category + '/' + name)
           .then(
               function (response) {
+                  showSimpleToast("La habilidad fue borrada correctamente de la base de datos.");
                   getAllSkills();
               }, function (err) {
                 $scope.isLoading = false;
+                showSimpleToast("Ha ocurrido un error. La habilidad no pudo ser borrada de la base de datos.");
               }
           );
   };
@@ -103,6 +109,15 @@ appmodule.controller('habilidadesController', function($scope, $http, $mdDialog)
       }
     },function(){
     });
+  };
+
+  function showSimpleToast(message) {
+      $mdToast.show(
+      $mdToast.simple()
+          .textContent(message)
+          .position('top right')
+          .hideDelay(3000)
+      );
   };
 
 });
