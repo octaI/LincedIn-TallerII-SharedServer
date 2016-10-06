@@ -1,11 +1,15 @@
 appmodule.controller('habilidadesController', function($scope, $http, $mdDialog) {
 	$scope.title="Habilidades";
-  $scope.isLoading = true;
+  $scope.isLoading = false;
 
 	$scope.skills=[];
 	getAllSkills();
 
+  $scope.categories = [];
+  getAllCategories();
+
 	function getAllSkills() {
+      $scope.isLoading = true;
     	$http.get('/skills')
         	.then(function (response) {
             $scope.skills=response.data.skills;
@@ -13,6 +17,18 @@ appmodule.controller('habilidadesController', function($scope, $http, $mdDialog)
         	}, function (err) {
             $scope.isLoading = false;
         	}
+        );
+  };
+
+  function getAllCategories() {
+      $scope.isLoading = true;
+      $http.get('/categories')
+          .then(function (response) {
+            $scope.categories=response.data.categories;
+            $scope.isLoading = false;
+          }, function (err) {
+            $scope.isLoading = false;
+          }
         );
   };
 

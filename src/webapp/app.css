@@ -19,7 +19,7 @@ md-toolbar h1 {
 .card-container {
   margin: 10px 30px 80px 30px;
   padding: 10px;
-  background-color: white;
+  background-color: #FAFAFA;
 }
 
 .card-container h1 {
@@ -30,7 +30,7 @@ md-toolbar h1 {
 .card {
   padding: 10px;
   margin: 8px;
-  background-color: white;
+  background-color: #FAFAFA;
 }
 
 .md-icon-button {
