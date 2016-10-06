@@ -7,17 +7,17 @@ appmodule.controller('categoriasController',function($scope,$http,$mdDialog,$fil
 
 	getAllCategories();
 
-	function getAllCategories(){
-	$http.get('/categories')
-	.then(function(response){
-		$scope.categories=response.data.categories;
-		$scope.isLoading=false;
-	},function (err){
-		$scope.isLoading=false;
-		alert("An error has occured while handling the request");
-	}
-	);
-	};
+	function getAllCategories() {
+      $scope.isLoading = true;
+    	$http.get('/categories')
+        	.then(function (response) {
+            $scope.categories=response.data.categories;
+            $scope.isLoading = false;
+        	}, function (err) {
+            $scope.isLoading = false;
+        	}
+        );
+  };
 
 	
 	$scope.submitCategory = function(ev) {
@@ -37,6 +37,23 @@ appmodule.controller('categoriasController',function($scope,$http,$mdDialog,$fil
 		});
 	
 	};
+
+	$scope.showAddCategoryDialog = function(ev) {
+    $mdDialog.show({
+      controller: dialogController,
+      template: '<md-dialog aria-label="Add Category"> <md-content class="md-padding"> <form name="categoryForm"> <div layout="column" layout-sm="column"> <md-input-container flex> <label>Categoria</label> <input ng-model="category.categoryname" md-maxlength="50" maxlength="50" placeholder="Ingrese el nombre de la categoria"> </md-input-container>  <md-input-container flex> <label>Descripcion de la categoria</label> <textarea ng-model="category.categorydescription" columns="1" md-maxlength="150" maxlength="150"></textarea> </md-input-container> </form> </md-content> <div class="md-actions" layout="row"> <span flex></span> <md-button ng-click="answer(\'not useful\')" class="md-accent"> Cancelar </md-button> <md-button ng-click="answer(category)" class="md-primary"> Guardar </md-button> </div></md-dialog>',
+      targetEvent: ev,
+      clickOutsideToClose: true
+    })
+    .then(function(answer) {
+      if (answer !== 'not useful') {
+        category = {'name': answer.categoryname, 'description': answer.categorydescription};
+        console.log(category);
+        addCategory(category);
+      }
+    },function(){
+    });
+  };
 
 	$scope.showEditCategoryDialogue = function(ev, category) {
 		
@@ -69,18 +86,17 @@ appmodule.controller('categoriasController',function($scope,$http,$mdDialog,$fil
 		});
 	};
 
-	function addCategory(category){
-		$scope.isLoading=true;
-		$http.post('/categories',category)
-		.then(function(response){
-			$scope.categories.push(category);
-			getAllCategories();			
-		},function(err){
-			$scope.isLoading=false;
-			alert('An error has occurred while handling the request');
-		}
-		);
-	};
+	 function addCategory(category) {
+    $scope.isLoading = true;
+    $http.post('/categories', category)
+      .then(function (response) {
+          $scope.categories.push(category);
+          getAllCategories();
+        }, function (err) {
+          $scope.isLoading = false;
+        }
+      );
+  };
 
 	function deleteCategory(name,$http) {
 	 	$scope.isLoading=true;
