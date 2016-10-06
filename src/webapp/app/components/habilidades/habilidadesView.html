@@ -3,18 +3,6 @@
 	<div class='md-whiteframe-4dp card-container'>
 	 
 			<h1>{{title}}</h1>
-
-			<div layout="row">
-			<md-input-container>
-          		<label>Categoría</label>
-          		<md-select ng-model="selectedCategory">
-            		<md-option><em>Todas</em></md-option>
-            		<md-option ng-repeat="category in categories" ng-value="category.name" class="md-no-underline">
-              			{{category.name}}
-            		</md-option>
-          		</md-select>
-        	</md-input-container>
-        	</div>
 		
 			<md-list>
 			  	<md-list-item class="md-3-line" ng-repeat="skill in skills" class="card">

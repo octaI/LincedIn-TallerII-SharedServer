@@ -5,9 +5,6 @@ appmodule.controller('habilidadesController', function($scope, $http, $mdDialog)
 	$scope.skills=[];
 	getAllSkills();
 
-  $scope.categories = [];
-  getAllCategories();
-
 	function getAllSkills() {
       $scope.isLoading = true;
     	$http.get('/skills')
@@ -17,18 +14,6 @@ appmodule.controller('habilidadesController', function($scope, $http, $mdDialog)
         	}, function (err) {
             $scope.isLoading = false;
         	}
-        );
-  };
-
-  function getAllCategories() {
-      $scope.isLoading = true;
-      $http.get('/categories')
-          .then(function (response) {
-            $scope.categories=response.data.categories;
-            $scope.isLoading = false;
-          }, function (err) {
-            $scope.isLoading = false;
-          }
         );
   };
 
@@ -85,7 +70,7 @@ appmodule.controller('habilidadesController', function($scope, $http, $mdDialog)
 
   $scope.showAddSkillDialog = function(ev) {
     $mdDialog.show({
-      controller: AddDialogController,
+      controller: AddSkillDialogController,
       template: '<md-dialog aria-label="Add skill"> <div class="md-padding"> <form name="skillForm"> <div layout="column" layout-sm="column"> <md-input-container flex> <label>Habilidad</label> <input ng-model="skill.name" md-maxlength="50" maxlength="50" placeholder="Nombre de la habilidad"> </md-input-container>  <md-input-container flex> <label>Categoría</label> <input ng-model="skill.category" placeholder="Categoría de la habilidad"> </md-input-container>  <md-input-container flex> <label>Descripción</label> <textarea ng-model="skill.description" columns="1" md-maxlength="150" maxlength="150" placeholder="Descripción de la habilidad"></textarea> </md-input-container> </form> </div> <md-dialog-actions layout="row"> <md-button ng-click="answer(\'not useful\')" class="md-primary"> Cancelar </md-button> <md-button ng-click="answer(skill)" class="md-primary"> Guardar </md-button> </md-dialog-actions></md-dialog>',
       targetEvent: ev,
       clickOutsideToClose: true
@@ -106,8 +91,8 @@ appmodule.controller('habilidadesController', function($scope, $http, $mdDialog)
         skillToEdit: $scope.selectedSkill
       },
       controllerAs: 'ctrl',
-      controller: EditDialogController,
-      template: '<md-dialog aria-label="Add skill"> <div class="md-padding"> <form name="skillForm"> <div layout="column" layout-sm="column"> <md-input-container flex> <label>Habilidad</label> <input ng-model="skill.name" md-maxlength="50" maxlength="50" placeholder={{ctrl.skill.name}}> </md-input-container>  <md-input-container flex> <label>Categoría</label> <input ng-model="skill.category" placeholder={{ctrl.skill.category}}> </md-input-container>  <md-input-container flex> <label>Descripción</label> <textarea ng-model="skill.description" columns="1" md-maxlength="150 maxlength="150" placeholder={{ctrl.skill.description}}></textarea> </md-input-container> </form> </div> <md-dialog-actions layout="row"> <md-button ng-click="answer(\'not useful\')" class="md-primary"> Cancelar </md-button> <md-button ng-click="answer(skill)" class="md-primary"> Guardar </md-button> </md-dialog-actions></md-dialog>',
+      controller: EditSkillDialogController,
+      template: '<md-dialog aria-label="Add skill"> <div class="md-padding"> <form name="skillForm"> <div layout="column" layout-sm="column"> <md-input-container flex> <label>Habilidad</label> <input ng-model="skill.name" md-maxlength="50" maxlength="50" placeholder={{ctrl.skill.name}}> </md-input-container>  <md-input-container flex> <label>Categoría</label> <input ng-model="skill.category" placeholder={{ctrl.skill.category}}> </md-input-container>  <md-input-container flex> <label>Descripción</label> <textarea ng-model="skill.description" columns="1" md-maxlength="150" maxlength="150" placeholder={{ctrl.skill.description}}></textarea> </md-input-container> </form> </div> <md-dialog-actions layout="row"> <md-button ng-click="answer(\'not useful\')" class="md-primary"> Cancelar </md-button> <md-button ng-click="answer(skill)" class="md-primary"> Guardar </md-button> </md-dialog-actions></md-dialog>',
       targetEvent: ev,
       clickOutsideToClose: true
     })
@@ -122,7 +107,7 @@ appmodule.controller('habilidadesController', function($scope, $http, $mdDialog)
 
 });
 
-function AddDialogController($scope, $mdDialog){
+function AddSkillDialogController($scope, $mdDialog){
     $scope.hide = function(){
       $mdDialog.hide();
     };
@@ -134,7 +119,7 @@ function AddDialogController($scope, $mdDialog){
     };
 };
 
-function EditDialogController($scope, $mdDialog, skillToEdit) {
+function EditSkillDialogController($scope, $mdDialog, skillToEdit) {
     $scope.skill = skillToEdit;
     $scope.hide = function(){
       $mdDialog.hide();
