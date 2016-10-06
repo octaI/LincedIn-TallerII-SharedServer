@@ -117,7 +117,27 @@ appmodule.controller('categoriasController',function($scope,$http,$mdDialog,$fil
   };
 	
 
-function dialogController($scope,$mdDialog,name,description){
+
+
+
+
+});
+
+
+function dialogController($scope,$mdDialog){
+		
+		$scope.hide = function(){
+			$mdDialog.hide();
+		};
+		$scope.cancel = function(){
+			$mdDialog.cancel();
+		};
+		$scope.answer = function(answer){
+			$mdDialog.hide(answer);
+		};
+	};
+
+function dialogController2($scope,$mdDialog,name,description){
 		console.log(name);
 		$scope.category = {categoryname: name, categorydescription: description};
 
@@ -131,8 +151,3 @@ function dialogController($scope,$mdDialog,name,description){
 			$mdDialog.hide(answer);
 		};
 	};
-
-
-
-});
-
