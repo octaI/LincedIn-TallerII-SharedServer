@@ -1,6 +1,6 @@
 appmodule.config(function($mdThemingProvider){
 	$mdThemingProvider.theme('default')
 		.primaryPalette('orange')
-		.accentPalette('light-green')
+		.accentPalette('green')
 		.warnPalette('deep-orange');
 });
