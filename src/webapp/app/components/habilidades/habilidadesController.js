@@ -69,7 +69,7 @@ appmodule.controller('habilidadesController', function($scope, $http, $mdDialog)
 
   $scope.showAddSkillDialog = function(ev) {
     $mdDialog.show({
-      controller: dialogController,
+      controller: AddDialogController,
       template: '<md-dialog aria-label="Add skill"> <div class="md-padding"> <form name="skillForm"> <div layout="column" layout-sm="column"> <md-input-container flex> <label>Habilidad</label> <input ng-model="skill.name" placeholder="Nombre de la habilidad"> </md-input-container>  <md-input-container flex> <label>Categoría</label> <input ng-model="skill.category" placeholder="Categoría de la habilidad"> </md-input-container>  <md-input-container flex> <label>Descripción</label> <textarea ng-model="skill.description" columns="1" md-maxlength="150" placeholder="Descripción de la habilidad"></textarea> </md-input-container> </form> </div> <md-dialog-actions layout="row"> <md-button ng-click="answer(\'not useful\')" class="md-primary"> Cancelar </md-button> <md-button ng-click="answer(skill)" class="md-primary"> Guardar </md-button> </md-dialog-actions></md-dialog>',
       targetEvent: ev,
       clickOutsideToClose: true
@@ -84,9 +84,14 @@ appmodule.controller('habilidadesController', function($scope, $http, $mdDialog)
   };
 
   $scope.showEditSkillDialog = function(ev, skillToEdit) {
+    $scope.selectedSkill = skillToEdit;
     $mdDialog.show({
-      controller: dialogController,
-      template: '<md-dialog aria-label="Add skill"> <div class="md-padding"> <form name="skillForm"> <div layout="column" layout-sm="column"> <md-input-container flex> <label>Habilidad</label> <input ng-model="skill.name" placeholder="Nombre de la habilidad"> </md-input-container>  <md-input-container flex> <label>Categoría</label> <input ng-model="skill.category" placeholder="Categoría de la habilidad"> </md-input-container>  <md-input-container flex> <label>Descripción</label> <textarea ng-model="skill.description" columns="1" md-maxlength="150" placeholder="Descripción de la habilidad"></textarea> </md-input-container> </form> </div> <md-dialog-actions layout="row"> <md-button ng-click="answer(\'not useful\')" class="md-primary"> Cancelar </md-button> <md-button ng-click="answer(skill)" class="md-primary"> Guardar </md-button> </md-dialog-actions></md-dialog>',
+      locals: {
+        skillToEdit: $scope.selectedSkill
+      },
+      controllerAs: 'ctrl',
+      controller: EditDialogController,
+      template: '<md-dialog aria-label="Add skill"> <div class="md-padding"> <form name="skillForm"> <div layout="column" layout-sm="column"> <md-input-container flex> <label>Habilidad</label> <input ng-model="skill.name" placeholder={{ctrl.skill.name}}> </md-input-container>  <md-input-container flex> <label>Categoría</label> <input ng-model="skill.category" placeholder={{ctrl.skill.category}}> </md-input-container>  <md-input-container flex> <label>Descripción</label> <textarea ng-model="skill.description" columns="1" md-maxlength="150" placeholder={{ctrl.skill.description}}></textarea> </md-input-container> </form> </div> <md-dialog-actions layout="row"> <md-button ng-click="answer(\'not useful\')" class="md-primary"> Cancelar </md-button> <md-button ng-click="answer(skill)" class="md-primary"> Guardar </md-button> </md-dialog-actions></md-dialog>',
       targetEvent: ev,
       clickOutsideToClose: true
     })
@@ -101,7 +106,7 @@ appmodule.controller('habilidadesController', function($scope, $http, $mdDialog)
 
 });
 
-function dialogController($scope, $mdDialog){
+function AddDialogController($scope, $mdDialog){
     $scope.hide = function(){
       $mdDialog.hide();
     };
@@ -111,4 +116,17 @@ function dialogController($scope, $mdDialog){
     $scope.answer = function(answer){
       $mdDialog.hide(answer);
     };
-  };
+};
+
+function EditDialogController($scope, $mdDialog, skillToEdit) {
+    $scope.skill = skillToEdit;
+    $scope.hide = function(){
+      $mdDialog.hide();
+    };
+    $scope.cancel = function(){
+      $mdDialog.cancel();
+    };
+    $scope.answer = function(answer){
+      $mdDialog.hide(answer);
+    };
+};
