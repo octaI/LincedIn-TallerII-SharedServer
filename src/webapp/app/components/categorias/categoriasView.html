@@ -7,7 +7,7 @@
     <div class="md-list-item-text">
     <div layout="row">
     	<div layout="column" layout-align="center start">
-      		<h3 md-colors="{color:'accent'}">{{category.name}}</h3>
+      		<h3 md-colors="{color:'primary'}">{{category.name}}</h3>
       		
       		<p>{{category.description}}</p>
     	<md-divider ng-if="!$last"></md-divider>
@@ -15,10 +15,10 @@
     	<span flex></span>
 		      	<div layout="row" layout-align="center end">
 		      		<md-button class="md-icon-button md-primary md-raised" aria-label="Edit button" ng-click='showEditCategoryDialogue($event,category)'>
-	  					<md-icon md-font-library="material-icons" ng-style="{color: '#616161'}">mode_edit</md-icon>
+	  					<md-icon md-font-library="material-icons" ng-style="{color: 'white'}">mode_edit</md-icon>
 					</md-button>
 		      		<md-button class="md-icon-button md-primary md-raised" aria-label="Delete button" ng-click="showConfirmDeleteCategory($event, category)">
-	  					<md-icon class="md-icon" md-font-library="material-icons" ng-style="{color: '#616161'}">delete_forever</md-icon>
+	  					<md-icon class="md-icon" md-font-library="material-icons" ng-style="{color: 'white'}">delete_forever</md-icon>
 					</md-button>
 		      	</div>	
     	
@@ -30,7 +30,7 @@
 
 
 
-<md-button class="md-fab md-fab-top-right lime500" aria-label="Agregar una categoria" ng-click="showAddCategoryDialog($event)" style='position: fixed'>
+<md-button class="md-fab md-fab-bottom-right lime500" aria-label="Agregar una categoria" ng-click="showAddCategoryDialog($event)" style='position: fixed'>
 	<md-icon md-font-library="material-icons" ng-style="{color : '#616161'}">add</md-icon>
 </md-button>
 </div>

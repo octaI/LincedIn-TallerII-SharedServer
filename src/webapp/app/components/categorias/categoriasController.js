@@ -86,7 +86,7 @@ appmodule.controller('categoriasController',function($scope,$http,$mdDialog,$fil
 		});
 	};
 
-	 function addCategory(category) {
+	function addCategory(category) {
     $scope.isLoading = true;
     $http.post('/categories', category)
       .then(function (response) {
@@ -96,7 +96,7 @@ appmodule.controller('categoriasController',function($scope,$http,$mdDialog,$fil
           $scope.isLoading = false;
         }
       );
-  };
+  	};
 
 	function deleteCategory(name,$http) {
 	 	$scope.isLoading=true;
