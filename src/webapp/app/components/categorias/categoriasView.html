@@ -1,9 +1,9 @@
 
 <h1 md-colors="{color:'primary'}" align="center">{{title}}</h1>
-<div class='md-whiteframe-4dp card' ng-cloak>
-<md-progress-linear md-mode="indeterminate" ng-disabled="!isLoading" class="md-warn progress-top"></md-progress-linear>
+<div class='md-whiteframe-4dp card-container' ng-cloak>
+<md-progress-linear md-mode="indeterminate" ng-disabled="!isLoading" class="md-warn progress-top" style='position:fixed'></md-progress-linear>
 <md-list ng-controller='categoriasController' ng-cloak >
-  <md-list-item class="md-3-line" ng-repeat="category in categories">
+  <md-list-item class="md-3-line" ng-repeat="category in categories track by category.name" class='card'>
     <div class="md-list-item-text">
     <div layout="row">
     	<div layout="column" layout-align="center start">
@@ -12,8 +12,7 @@
       		<p>{{category.description}}</p>
     	<md-divider ng-if="!$last"></md-divider>
     	</div>
-    	<span flex></span>
-		      	<div layout="row" layout-align="center end">
+		      	<div class='md-secondary'>
 		      		<md-button class="md-icon-button md-primary md-raised" aria-label="Edit button" ng-click='showEditCategoryDialogue($event,category)'>
 	  					<md-icon md-font-library="material-icons" ng-style="{color: 'white'}">mode_edit</md-icon>
 					</md-button>
@@ -30,7 +29,7 @@
 
 
 
-<md-button class="md-fab md-fab-bottom-right lime500" aria-label="Agregar una categoria" ng-click="showAddCategoryDialog($event)" style='position: fixed'>
-	<md-icon md-font-library="material-icons" ng-style="{color : '#616161'}">add</md-icon>
+<md-button class="md-fab md-fab-bottom-right" aria-label="Add Category" ng-click="showAddCategoryDialog($event)" style='position: fixed'>
+	<md-icon md-font-library="material-icons" ng-style="{color : 'black'}">add</md-icon>
 </md-button>
 </div>
