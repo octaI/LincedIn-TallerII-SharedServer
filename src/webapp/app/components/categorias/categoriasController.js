@@ -1,4 +1,4 @@
-appmodule.controller('categoriasController',function($scope,$http,$mdDialog,$filter){
+appmodule.controller('categoriasController',function($scope,$http,$mdDialog,$mdToast){
 	$scope.title="Categorias";
 	
 	$scope.isLoading=true;
@@ -81,8 +81,17 @@ appmodule.controller('categoriasController',function($scope,$http,$mdDialog,$fil
 		.then(function(response){
 			getAllCategories();
 		},function(err){
+			console.log(err);
 			$scope.isLoading=false;
-			alert("An error has occurred while handling the request");
+			var toast = $mdToast.simple()
+			.textContent(err.data.error)
+			.action("OK")
+			.highlightAction(true)
+			.position("top right end");
+			$mdToast.show(toast)
+			.then(function(response){
+
+			})
 		});
 	};
 
