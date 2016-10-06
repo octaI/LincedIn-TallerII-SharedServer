@@ -6,19 +6,36 @@ appmodule.controller('puestosController', function($scope, $http, $mdDialog) {
 	getAllJobPositions();
 
   	$scope.categories = [];
+  	$scope.selectedCategory = 'Todas';
   	getAllCategories();
 
 	function getAllJobPositions() {
       $scope.isLoading = true;
     	$http.get('/job_positions')
         	.then(function (response) {
-            $scope.jobPositions=response.data.job_positions;
-            $scope.isLoading = false;
+            	$scope.jobPositions=response.data.job_positions;
+            	$scope.isLoading = false;
         	}, function (err) {
-            $scope.isLoading = false;
+            	$scope.isLoading = false;
         	}
         );
-  };
+  	};
+
+  	function getJobPositionsFilteredByCategory(category) {
+  		if (category === 'Todas') {
+  			getAllJobPositions();
+  		} else {
+  			$scope.isLoading = true;
+    		$http.get('/job_positions/categories/' + category)
+        	.then(function (response) {
+            		$scope.jobPositions=response.data.job_positions;
+            		$scope.isLoading = false;
+        		}, function (err) {
+            		$scope.isLoading = false;
+        		}
+        	);
+  		}
+  	};
 
   function getAllCategories() {
       $scope.isLoading = true;
@@ -119,6 +136,18 @@ appmodule.controller('puestosController', function($scope, $http, $mdDialog) {
     },function(){
     });
   };
+
+  $scope.onFilterSwitchChanged = function() {
+  	if ($scope.filterActivated) {
+  		getJobPositionsFilteredByCategory($scope.selectedCategory);
+  	} else {
+  		getAllJobPositions();
+  	}
+  };
+
+  $scope.switchOffFilterSwitch = function() {
+  	$scope.filterActivated = false;
+  }
 
 });
 
