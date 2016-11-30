@@ -60,7 +60,7 @@
     - name: "Baja de categoría"
     - url: "/categories/deporte"
     - method: 'DELETE'
-    - expected_status: [204]
+    - expected_status: [214]
 - test:
     - name: "Baja de categoría inexistente"
     - url: "/categories/invalidName"

@@ -70,7 +70,7 @@
     - name: "Baja de skills"
     - url: "/skills/categories/music/Python"
     - method: 'DELETE'
-    - expected_status: [204]
+    - expected_status: [214]
 - test:
     - name: "Baja de skills no existe nombre"
     - url: "/skills/categories/software/invalidName"

@@ -70,7 +70,7 @@
     - name: "Baja de puestos"
     - url: "/job_positions/categories/music/Testeador"
     - method: 'DELETE'
-    - expected_status: [204]
+    - expected_status: [214]
 - test:
     - name: "Baja de puestos no existe nombre"
     - url: "/job_positions/categories/software/invalidName"

@@ -7,7 +7,7 @@ const CODE_ERROR_UNEXPECTED  = 500;
 const CODE_ERROR_INCLUMPLIMIENTO = 400;
 const CODE_LIST_OK = 200;
 const CODE_ADD_OK = 201;
-const CODE_DELETE_OK = 204;
+const CODE_DELETE_OK = 214;
 const CODE_UPDATE_OK = 200;
 
 //Error codes API
@@ -124,7 +124,9 @@ exports.deleteJobPosition = function (req, res) {
  			return common.handleError(res,{code:ERROR_DESTROY_DATA_DB,message:"Error on delete job position"},CODE_ERROR_UNEXPECTED);
  		}
 
- 		res.status(CODE_DELETE_OK).send();
+ 		//res.status(CODE_DELETE_OK).send();
+ 		res.writeHead(CODE_DELETE_OK, "No Content");
+ 		res.send().end();
 	});
 
 };
@@ -267,7 +269,9 @@ exports.deleteSkill = function (req, res) {
  			return common.handleError(res,{code:ERROR_DESTROY_DATA_DB,message:"Error on delete skill"},CODE_ERROR_UNEXPECTED);
  		}
 
- 		res.status(CODE_DELETE_OK).send();
+ 		//res.status(CODE_DELETE_OK).send();
+ 		res.writeHead(CODE_DELETE_OK, "No Content");
+ 		res.send().end();
 	});
 
 };
@@ -392,7 +396,9 @@ exports.deleteCategory = function (req, res) {
  			return common.handleError(res,{code:ERROR_DESTROY_DATA_DB_DB,message:"Error on delete category."},CODE_ERROR_UNEXPECTED);
  		}
 
- 		res.status(CODE_DELETE_OK).send();
+ 		//res.status(CODE_DELETE_OK).send();
+ 		res.writeHead(CODE_DELETE_OK, "No Content");
+ 		res.send().end();
 	});
 
 };
